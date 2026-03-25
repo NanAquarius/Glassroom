@@ -3,34 +3,35 @@
 # Glassroom
 
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![Open source](https://img.shields.io/badge/open%20source-Glassroom-4f46e5)](#-它适合做什么)
-[![Shared schema](https://img.shields.io/badge/schema-case%20object-7c3aed)](#-共享工作单元)
-[![Modules](https://img.shields.io/badge/modules-case--assembler%20%7C%20bias%20%7C%20structured-111827)](#-当前已公开能力)
-[![Examples](https://img.shields.io/badge/examples-public--safe-0f766e)](#-快速开始)
-[![UI templates](https://img.shields.io/badge/ui%20templates-deidentified-9a3412)](#-ui-模板库)
+[![Open source](https://img.shields.io/badge/open%20source-Glassroom-4f46e5)](#what-glassroom-is-for)
+[![Shared schema](https://img.shields.io/badge/schema-case%20object-7c3aed)](#shared-unit-of-work)
+[![Modules](https://img.shields.io/badge/modules-case--assembler%20%7C%20bias%20%7C%20structured-111827)](#current-public-scope)
+[![Examples](https://img.shields.io/badge/examples-public--safe-0f766e)](#quick-start)
+[![UI templates](https://img.shields.io/badge/ui%20templates-deidentified-9a3412)](#ui-template-library)
 
 > 🧭 *把案例型情报分析工作流整理成结构化、可教学、可复用、可继续扩展的开源核心。*
 
 ## 📚 目录
 
-- [✨ 它适合做什么](#-它适合做什么)
-- [🚫 它不适合做什么](#-它不适合做什么)
-- [⚡ 快速开始](#-快速开始)
-- [🧩 当前已公开能力](#-当前已公开能力)
-- [🗺 Workflow artifact map](#-workflow-artifact-map)
-- [🔧 共享工作单元](#-共享工作单元)
-- [🧱 模块族谱](#-模块族谱)
-- [🎨 UI 模板库](#-ui-模板库)
-- [🗂 仓库结构](#-仓库结构)
-- [🛣 路线图方向](#-路线图方向)
-- [📐 设计原则](#-设计原则)
-- [📌 当前状态](#-当前状态)
+- [✨ 它适合做什么](#what-glassroom-is-for)
+- [🚫 它不适合做什么](#what-glassroom-is-not-for)
+- [⚡ 快速开始](#quick-start)
+- [🧩 当前已公开能力](#current-public-scope)
+- [🗺 Workflow artifact map](#workflow-artifact-map)
+- [🔧 共享工作单元](#shared-unit-of-work)
+- [🧱 模块族谱](#module-families)
+- [🎨 UI 模板库](#ui-template-library)
+- [🗂 仓库结构](#repository-layout)
+- [🛣 路线图方向](#roadmap-direction)
+- [📐 设计原则](#design-principles)
+- [📌 当前状态](#status)
 - [License](#license)
 
 Glassroom 是一个面向案例型情报分析教学与分析工作的开源 workflow core。
 
 它关心的不是“帮你多生成几段课业文字”，而是把一整条分析链里的关键中间层先整理出来：共享 case object、稳定的中间产物、结构化分析模块，以及后续可接入 HTML 页面、课程写作产物和教学展示页的渲染接口。
 
+<a id="what-glassroom-is-for"></a>
 ## ✨ 它适合做什么
 
 如果你要做的是下面这些事情，Glassroom 就是对路的：
@@ -41,6 +42,7 @@ Glassroom 是一个面向案例型情报分析教学与分析工作的开源 wor
 - 把“流程能力”沉淀成 schema 和模块，而不是只藏在 prompt 里
 - 保留那些真正可复用的教学界面结构，而不是重复做一次性课件
 
+<a id="what-glassroom-is-not-for"></a>
 ## 🚫 它不适合做什么
 
 它 **不是**：
@@ -55,6 +57,7 @@ Glassroom 的开源思路很明确：
 
 先公开可移植的骨架，再逐步放出真正 public-safe、能独立成立的模块。
 
+<a id="quick-start"></a>
 ## ⚡ 快速开始
 
 当前最快的体验方式，是用仓库里已经准备好的 public-safe 示例输入，先组装一个共享 case object：
@@ -86,6 +89,7 @@ python3 packages/structured-analysis/build_structured_analysis.py \
 
 也就是说，仓库现在已经不是只有说明文档，现阶段公开出来的模块都能直接跑。
 
+<a id="current-public-scope"></a>
 ## 🧩 当前已公开能力
 
 当前这版公开出来的 Glassroom，已经包含：
@@ -101,6 +105,7 @@ python3 packages/structured-analysis/build_structured_analysis.py \
 
 目标不是一口气把所有本地能力扔出来，而是先把最稳、最适合公开、最能形成骨架的部分开出来。
 
+<a id="workflow-artifact-map"></a>
 ## 🗺 Workflow artifact map
 
 当前核心流可以理解成：
@@ -131,6 +136,7 @@ base-case.json
 - 同一份 case object 可以被多个下游输出复用
 - 关键逻辑不再只活在某一轮 prompt 里
 
+<a id="shared-unit-of-work"></a>
 ## 🔧 共享工作单元
 
 Glassroom 默认使用共享 **case object** 作为工作单元。
@@ -144,6 +150,7 @@ Glassroom 默认使用共享 **case object** 作为工作单元。
 
 但这个共享 schema 是整个 Glassroom 能顺畅扩展的前提，因为它让 source intake、bias analysis、structured analysis、mitigation、renderer、writing outputs 这些层有共同语境。
 
+<a id="module-families"></a>
 ## 🧱 模块族谱
 
 ### 当前可用
@@ -164,6 +171,7 @@ Glassroom 默认使用共享 **case object** 作为工作单元。
 - case HTML rendering
 - course writing outputs
 
+<a id="ui-template-library"></a>
 ## 🎨 UI 模板库
 
 Glassroom 现在也开始有一套 public-safe UI template library：
@@ -180,6 +188,7 @@ Glassroom 现在也开始有一套 public-safe UI template library：
 
 也就是说，保留的是教学骨架，不是个人归属信息，也不是某门课的私有页面皮肤。
 
+<a id="repository-layout"></a>
 ## 🗂 仓库结构
 
 ```text
@@ -198,6 +207,7 @@ Glassroom/
 └── README.zh-CN.md
 ```
 
+<a id="roadmap-direction"></a>
 ## 🛣 路线图方向
 
 Glassroom 后续适合继续公开的模块族，大致包括：
@@ -219,6 +229,7 @@ Glassroom 后续适合继续公开的模块族，大致包括：
 4. de-identified UI patterns
 5. downstream renderers and delivery modules
 
+<a id="design-principles"></a>
 ## 📐 设计原则
 
 - 优先稳定结构，而不是炫技推断
@@ -227,6 +238,7 @@ Glassroom 后续适合继续公开的模块族，大致包括：
 - workflow orchestration 和 presentation layer 要分开
 - 只公开 public-safe、可移植、可维护的部分
 
+<a id="status"></a>
 ## 📌 当前状态
 
 Glassroom 现在还处在早期 extraction 阶段。

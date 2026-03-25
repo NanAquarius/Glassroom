@@ -6,6 +6,7 @@
 [![Open source](https://img.shields.io/badge/open%20source-Glassroom-4f46e5)](#-what-glassroom-is-for)
 [![Shared schema](https://img.shields.io/badge/schema-case%20object-7c3aed)](#-shared-unit-of-work)
 [![Modules](https://img.shields.io/badge/modules-case--assembler%20%7C%20bias%20%7C%20structured-111827)](#-current-public-scope)
+[![Skills](https://img.shields.io/badge/skills-mountable-0f766e)](#-module-families)
 [![Examples](https://img.shields.io/badge/examples-public--safe-0f766e)](#-quick-start)
 [![UI templates](https://img.shields.io/badge/ui%20templates-deidentified-9a3412)](#-ui-template-library)
 
@@ -94,6 +95,7 @@ This initial public release includes:
 - `cognitive-bias`
 - `structured-analysis`
 - a de-identified UI template reference library
+- a first mountable open-source `skills/` layer for router + reusable analysis skills
 
 This repository is intentionally starting small.
 
@@ -144,7 +146,7 @@ But the shared schema is the backbone that lets source intake, bias analysis, st
 
 ## 🧱 Module families
 
-### Available now
+### Package layer
 
 - [`packages/case-assembler/`](./packages/case-assembler/)
   - merges partial outputs into one reusable case object
@@ -154,6 +156,17 @@ But the shared schema is the backbone that lets source intake, bias analysis, st
 
 - [`packages/structured-analysis/`](./packages/structured-analysis/)
   - turns a policy question, hypotheses, assumptions, and evidence into a structured-analysis artifact
+
+### Mountable skill layer
+
+- [`skills/glassroom-router/`](./skills/glassroom-router/)
+- [`skills/glassroom-case-assembler/`](./skills/glassroom-case-assembler/)
+- [`skills/glassroom-cognitive-bias/`](./skills/glassroom-cognitive-bias/)
+- [`skills/glassroom-structured-analysis/`](./skills/glassroom-structured-analysis/)
+
+These skills are package-backed.
+
+That means the executable path lives in `packages/`, while `skills/` provides the mountable skill shape and task-routing surface.
 
 ### Planned expansion
 
@@ -188,6 +201,11 @@ Glassroom/
 │   ├── cognitive-bias/
 │   └── structured-analysis/
 ├── schemas/
+├── skills/
+│   ├── glassroom-router/
+│   ├── glassroom-case-assembler/
+│   ├── glassroom-cognitive-bias/
+│   └── glassroom-structured-analysis/
 ├── .gitignore
 ├── LICENSE
 └── README.md

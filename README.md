@@ -1,3 +1,5 @@
+[English](./README.md) | [简体中文](./README.zh-CN.md)
+
 # Glassroom
 
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)

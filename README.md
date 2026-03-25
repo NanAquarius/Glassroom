@@ -22,6 +22,8 @@ This initial open-source release includes:
 - a shared Glassroom case schema
 - a workflow contract describing how modules enrich that schema
 - a first reusable module: `case-assembler`
+- a public-safe `cognitive-bias` module
+- a public-safe `structured-analysis` module
 
 The repository is intentionally starting small.
 
@@ -45,7 +47,9 @@ Glassroom/
 ├── docs/
 ├── examples/
 ├── packages/
-│   └── case-assembler/
+│   ├── case-assembler/
+│   ├── cognitive-bias/
+│   └── structured-analysis/
 ├── schemas/
 ├── .gitignore
 ├── LICENSE
@@ -80,7 +84,9 @@ See:
 - [`packages/case-assembler/README.md`](./packages/case-assembler/README.md)
 - [`packages/case-assembler/assemble_case.py`](./packages/case-assembler/assemble_case.py)
 
-## Quick example
+## Quick examples
+
+### Assemble a shared case object
 
 ```bash
 python3 packages/case-assembler/assemble_case.py \
@@ -91,6 +97,24 @@ python3 packages/case-assembler/assemble_case.py \
   --structured-analysis examples/structured-analysis.json \
   --out-json /tmp/glassroom-case.json \
   --out-md /tmp/glassroom-case.md
+```
+
+### Build a bias-analysis pack
+
+```bash
+python3 packages/cognitive-bias/build_bias_analysis.py \
+  --input packages/cognitive-bias/bias-input-template.json \
+  --out-json /tmp/bias-analysis.json \
+  --out-md /tmp/bias-analysis.md
+```
+
+### Build a structured-analysis pack
+
+```bash
+python3 packages/structured-analysis/build_structured_analysis.py \
+  --input packages/structured-analysis/analysis-input-template.json \
+  --out-json /tmp/structured-analysis.json \
+  --out-md /tmp/structured-analysis.md
 ```
 
 The repository includes public-safe example inputs under [`examples/`](./examples/) so the first module can be run immediately.

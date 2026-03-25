@@ -1,0 +1,21 @@
+{
+  "caseTitle": "Arctic Port Expansion Signaling Case",
+  "method": "ach",
+  "policyQuestion": "Does the port expansion primarily indicate commercial adaptation, strategic signaling, or dual-use preparation?",
+  "hypotheses": [
+    "commercial adaptation",
+    "strategic signaling",
+    "dual-use preparation"
+  ],
+  "assumptions": [],
+  "evidence": {
+    "supporting": [
+      "Port capacity increased before any verified military deployment",
+      "State media highlighted symbolic strategic value of Arctic access"
+    ],
+    "contradicting": [
+      "Regional trade volumes also increased over the same period",
+      "No direct military logistics contracts have been confirmed"
+    ]
+  }
+}

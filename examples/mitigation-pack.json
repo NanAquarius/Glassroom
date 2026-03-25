@@ -1,0 +1,13 @@
+{
+  "caseTitle": "Arctic Port Expansion Signaling Case",
+  "items": [
+    {
+      "pitfall": "single-source overreliance",
+      "mitigation": "Cross-check imagery with procurement records, shipping data, and official port statements."
+    },
+    {
+      "pitfall": "context collapse",
+      "mitigation": "Compare port activity with regional economic and seasonal shipping patterns."
+    }
+  ]
+}

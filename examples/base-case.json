@@ -1,0 +1,10 @@
+{
+  "caseId": "sample-arctic-port-case",
+  "title": "Arctic Port Expansion Signaling Case",
+  "context": "A teaching case about how analysts interpret infrastructure expansion under uncertainty.",
+  "keyActors": ["State A", "Port Authority", "Regional Observers"],
+  "policyQuestion": "Does the port expansion signal commercial adaptation, strategic signaling, or both?",
+  "discussionPrompts": [
+    "What evidence would most effectively distinguish commercial intent from strategic signaling?"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "caseTitle": "Arctic Port Expansion Signaling Case",
+  "method": "ACH",
+  "policyQuestion": "Does the port expansion primarily indicate commercial adaptation, strategic signaling, or dual-use preparation?",
+  "outputs": [
+    {
+      "hypothesis": "commercial adaptation",
+      "status": "partially supported"
+    },
+    {
+      "hypothesis": "strategic signaling",
+      "status": "plausible but unconfirmed"
+    }
+  ]
+}

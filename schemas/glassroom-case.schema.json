@@ -1,0 +1,25 @@
+{
+  "caseId": "",
+  "title": "",
+  "context": "",
+  "geopoliticalContext": "",
+  "keyActors": [],
+  "policyQuestion": "",
+  "assumptions": [],
+  "sourceCards": [],
+  "evidence": {
+    "supporting": [],
+    "contradicting": [],
+    "ignored": []
+  },
+  "biases": [],
+  "osintPitfalls": [],
+  "mitigations": [],
+  "structuredAnalysis": {
+    "method": "",
+    "outputs": []
+  },
+  "discussionPrompts": [],
+  "expertAnalysis": "",
+  "recommendedDeliverables": []
+}

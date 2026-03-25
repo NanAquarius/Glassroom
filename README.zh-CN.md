@@ -3,10 +3,8 @@
 # Glassroom
 
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![Open source](https://img.shields.io/badge/open%20source-Glassroom-4f46e5)](#what-glassroom-is-for)
 [![Shared schema](https://img.shields.io/badge/schema-case%20object-7c3aed)](#shared-unit-of-work)
-[![Modules](https://img.shields.io/badge/modules-case--assembler%20%7C%20bias%20%7C%20structured-111827)](#current-public-scope)
-[![Examples](https://img.shields.io/badge/examples-public--safe-0f766e)](#quick-start)
+[![Mountable skills](https://img.shields.io/badge/skills-mountable-0f766e)](#module-families)
 [![UI templates](https://img.shields.io/badge/ui%20templates-deidentified-9a3412)](#ui-template-library)
 
 > 🧭 *把案例型情报分析工作流整理成结构化、可教学、可复用、可继续扩展的开源核心。*

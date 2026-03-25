@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guided Cognitive Trap Lab | Fixed UI Reference</title>
+  <style>
+    :root {
+      --navy: #1E3A5F;
+      --navy-light: #2A4A73;
+      --navy-dark: #152A45;
+      --gold: #F5A623;
+      --gold-pale: rgba(245, 166, 35, 0.15);
+      --off-white: #FAFAF8;
+      --cream: #F5F3EE;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --border: #D4D0C8;
+      --shadow: rgba(30, 58, 95, 0.1);
+      --shadow-deep: rgba(30, 58, 95, 0.18);
+      --error-red: #C0392B;
+      --success-green: #1F8A5B;
+      --warning-orange: #D97706;
+      --info-blue: #2563EB;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      background: var(--off-white);
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      padding: 24px 32px;
+      border-bottom: 4px solid var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-title {
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+    }
+
+    .header-subtitle {
+      font-size: 14px;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .header-badges {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header-badge {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-bar {
+      background: var(--cream);
+      padding: 16px 32px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 89px;
+      z-index: 99;
+    }
+
+    .nav-tab {
+      padding: 12px 18px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-dark);
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-tab.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+      box-shadow: 0 2px 8px var(--shadow-deep);
+    }
+
+    .nav-tab-number {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .main-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px 32px 48px;
+    }
+
+    .note-box,
+    .case-overview,
+    .cable-panel,
+    .analysis-panel {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--shadow);
+      overflow: hidden;
+    }
+
+    .note-box {
+      margin-bottom: 24px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--gold);
+      background: linear-gradient(180deg, #fff 0%, #fcfbf7 100%);
+    }
+
+    .note-box strong {
+      color: var(--navy);
+    }
+
+    .overview-header,
+    .section-header,
+    .cable-header {
+      background: linear-gradient(90deg, var(--navy), var(--navy-light));
+      color: white;
+      padding: 16px 24px;
+    }
+
+    .overview-title,
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .overview-content,
+    .section-content {
+      padding: 24px;
+      border-top: 2px solid var(--gold);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .overview-box {
+      background: var(--cream);
+      padding: 18px;
+      border-radius: 8px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .overview-box-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .overview-box-content,
+    .overview-box li {
+      font-size: 13px;
+    }
+
+    .overview-box ul { margin-left: 18px; }
+
+    .content-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 1200px) {
+      .content-wrapper { grid-template-columns: 1fr; }
+    }
+
+    .cable-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cable-meta-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.75);
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    .cable-meta-value {
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .cable-title { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+    .cable-subject { font-size: 13px; color: rgba(255,255,255,0.88); }
+
+    .cable-content {
+      padding: 24px;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .cable-paragraph { margin-bottom: 16px; }
+
+    .analysis-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .analysis-section {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--navy);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    .instructions-box {
+      background: var(--gold-pale);
+      border-left: 4px solid var(--gold);
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+
+    .instructions-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .instructions-text { font-size: 13px; }
+
+    .checklist, .evidence-list { margin-left: 18px; }
+    .checklist li, .evidence-item { margin-bottom: 10px; font-size: 13px; }
+
+    .evidence-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .evidence-category {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: #fff;
+    }
+
+    .evidence-category.supporting { border-left: 4px solid var(--success-green); }
+    .evidence-category.contradicting { border-left: 4px solid var(--error-red); }
+    .evidence-category.ignored { border-left: 4px solid var(--warning-orange); }
+
+    .evidence-category-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .bias-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .bias-badge {
+      background: white;
+      border: 2px solid var(--navy);
+      color: var(--navy);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
+      min-width: 140px;
+    }
+
+    .analysis-card,
+    .mitigation-item,
+    .expert-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+
+    .analysis-card-header,
+    .mitigation-title,
+    .expert-box-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .analysis-card-quote {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+
+    .analysis-card-content,
+    .analysis-card-mechanism,
+    .mitigation-desc,
+    .expert-box p {
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding: 20px 24px;
+      background: var(--cream);
+      border-top: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-title">Guided Cognitive Trap Lab <span style="font-size: 14px; opacity: 0.8;">| 固定式 UI 参考模版</span></div>
+    <div class="header-subtitle">De-identified instructional pattern for case-based intelligence analysis pages</div>
+    <div class="header-badges">
+      <span class="header-badge">Self-Study Mode</span>
+      <span class="header-badge">De-identified Sample</span>
+      <span class="header-badge">Bias Analysis Pattern</span>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <div class="nav-tab active"><span class="nav-tab-number">01</span><span>Case A</span></div>
+    <div class="nav-tab"><span class="nav-tab-number">02</span><span>Case B</span></div>
+    <div class="nav-tab"><span class="nav-tab-number">03</span><span>Case C</span></div>
+  </nav>
+
+  <main class="main-container">
+    <div class="note-box">
+      <strong>Template note.</strong> This fixed reference page preserves the interface structure and instructional flow of a classroom artifact after removing instructor identity, course identifiers, and source-specific branding. Replace all placeholder content with case-specific material before use.
+    </div>
+
+    <section class="case-overview">
+      <div class="overview-header">
+        <div class="overview-title"><span>📄</span><span>Case Overview / 案例概览</span></div>
+      </div>
+      <div class="overview-content">
+        <div class="overview-grid">
+          <div class="overview-box">
+            <div class="overview-box-title">Case frame</div>
+            <div class="overview-box-content">Summarize the case in 2–3 sentences. Explain why this case matters and what kind of judgment the learner is expected to test.</div>
+          </div>
+          <div class="overview-box">
+            <div class="overview-box-title">Key actors</div>
+            <div class="overview-box-content">
+              <ul>
+                <li>Actor A</li>
+                <li>Actor B</li>
+                <li>Observer / policymaker</li>
+              </ul>
+            </div>
+          </div>
+          <div class="overview-box">
+            <div class="overview-box-title">Policy question</div>
+            <div class="overview-box-content">State the core analytic question that runs through the rest of the page.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-wrapper">
+      <section class="cable-panel">
+        <div class="cable-header">
+          <div class="cable-meta">
+            <div><div class="cable-meta-label">Document type</div><div class="cable-meta-value">Primary source / memo / cable / report</div></div>
+            <div><div class="cable-meta-label">Date</div><div class="cable-meta-value">YYYY-MM-DD</div></div>
+            <div><div class="cable-meta-label">Classification</div><div class="cable-meta-value">Declassified / public-safe sample</div></div>
+            <div><div class="cable-meta-label">Focus</div><div class="cable-meta-value">Bias-aware analytical reading</div></div>
+          </div>
+          <div class="cable-title">Source document panel</div>
+          <div class="cable-subject">Use this panel for the main text, excerpted memo, or primary-source reading passage.</div>
+        </div>
+        <div class="cable-content">
+          <p class="cable-paragraph">1. (Sample) Place the core source passage here. The left panel should remain substantial enough that the learner still has to read evidence directly, rather than relying only on the analysis rail.</p>
+          <p class="cable-paragraph">2. (Sample) If the page includes highlights, preserve the visual relationship between excerpt, highlighted passage, and corresponding analytic explanation.</p>
+          <p class="cable-paragraph">3. (Sample) If chronology matters, include enough temporal context in the document panel for the learner to reconstruct what happened before moving into interpretation.</p>
+        </div>
+      </section>
+
+      <aside class="analysis-panel">
+        <section class="analysis-section">
+          <div class="section-header"><div class="section-title"><span class="section-number">1</span><span>Context Understanding / 背景理解</span></div></div>
+          <div class="section-content">
+            <div class="instructions-box">
+              <div class="instructions-title">Learning objective</div>
+              <div class="instructions-text">Establish the geopolitical context, the actors, and the decision frame before discussing cognitive traps.</div>
+            </div>
+            <ul class="checklist">
+              <li>What historical or institutional context shaped the judgment?</li>
+              <li>What pressures were operating on the analysts or decision-makers?</li>
+              <li>What exactly was being asked or decided?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="analysis-section">
+          <div class="section-header"><div class="section-title"><span class="section-number">2</span><span>Identify Assumptions / 识别假设</span></div></div>
+          <div class="section-content">
+            <div class="instructions-box">
+              <div class="instructions-title">Analysis task</div>
+              <div class="instructions-text">Make the assumptions visible before judging whether the interpretation was sound.</div>
+            </div>
+            <ul class="checklist">
+              <li>Assumption A about actor intent</li>
+              <li>Assumption B about institutional constraints</li>
+              <li>Assumption C about likely response patterns</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="analysis-section">
+          <div class="section-header"><div class="section-title"><span class="section-number">3</span><span>Evaluate Evidence / 证据评估</span></div></div>
+          <div class="section-content">
+            <div class="instructions-box">
+              <div class="instructions-title">Analysis task</div>
+              <div class="instructions-text">Separate supporting evidence, contradicting evidence, and ignored warning signs so interpretation never outruns the record.</div>
+            </div>
+            <div class="evidence-grid">
+              <div class="evidence-category supporting">
+                <div class="evidence-category-title">✔ Supporting evidence / 支持证据</div>
+                <ul class="evidence-list">
+                  <li class="evidence-item">Evidence point that appears to support the initial judgment</li>
+                  <li class="evidence-item">Another supporting signal, ideally specific and attributable</li>
+                </ul>
+              </div>
+              <div class="evidence-category contradicting">
+                <div class="evidence-category-title">✘ Contradicting evidence / 反驳证据</div>
+                <ul class="evidence-list">
+                  <li class="evidence-item">Contradictory evidence that weakens the preferred reading</li>
+                  <li class="evidence-item">An indicator that should have triggered more caution</li>
+                </ul>
+              </div>
+              <div class="evidence-category ignored">
+                <div class="evidence-category-title">⚠ Ignored warning signs / 被忽视的信号</div>
+                <ul class="evidence-list">
+                  <li class="evidence-item">Important but discounted warning sign</li>
+                  <li class="evidence-item">Missing evidence that would have changed confidence</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="analysis-section">
+          <div class="section-header"><div class="section-title"><span class="section-number">4</span><span>Cognitive Trap Detection / 认知陷阱识别</span></div></div>
+          <div class="section-content">
+            <div class="instructions-box">
+              <div class="instructions-title">Analysis task</div>
+              <div class="instructions-text">Use bias badges for fast recognition, then connect each one to a short explanation card.</div>
+            </div>
+            <div class="bias-grid">
+              <div class="bias-badge">Mirror Imaging<br><small>镜像思维</small></div>
+              <div class="bias-badge">Confirmation Bias<br><small>确认偏误</small></div>
+              <div class="bias-badge">Wishful Thinking<br><small>一厢情愿</small></div>
+            </div>
+            <div class="analysis-card">
+              <div class="analysis-card-header">Mirror Imaging / 镜像思维</div>
+              <div class="analysis-card-quote">“Sample highlighted passage from the source or memo.”</div>
+              <div class="analysis-card-content">Explain why the highlighted excerpt reflects this trap in this case rather than only defining the bias abstractly.</div>
+              <div class="analysis-card-mechanism"><strong>Mechanism:</strong> Show how the reasoning moved from assumption to distortion.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="analysis-section">
+          <div class="section-header"><div class="section-title"><span class="section-number">5</span><span>Mitigation Design / 缓解设计</span></div></div>
+          <div class="section-content">
+            <div class="instructions-box">
+              <div class="instructions-title">Analysis task</div>
+              <div class="instructions-text">Mitigations should be concrete analytical moves, not generic advice.</div>
+            </div>
+            <div class="mitigation-item">
+              <div class="mitigation-title">Key assumptions check</div>
+              <div class="mitigation-desc">Force explicit testing of the assumptions that made the original judgment seem persuasive.</div>
+            </div>
+            <div class="mitigation-item">
+              <div class="mitigation-title">Alternative analysis / red team</div>
+              <div class="mitigation-desc">Make one serious competing interpretation visible before final synthesis.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="analysis-section">
+          <div class="section-header"><div class="section-title"><span class="section-number">★</span><span>Expert Analysis / 专家解析</span></div></div>
+          <div class="section-content">
+            <div class="instructions-box">
+              <div class="instructions-title">Reveal after attempt</div>
+              <div class="instructions-text">This section should read like a walkthrough that rewards independent analysis, not like the first thing the learner sees.</div>
+            </div>
+            <div class="expert-box">
+              <div class="expert-box-title">Expert walkthrough</div>
+              <p>Use this area for a concise synthesis that connects context, assumptions, evidence imbalance, identified traps, and better analytic moves.</p>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      De-identified UI reference pattern for Glassroom case pages · Preserve instructional flow, not personal or institution-specific metadata.
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "templateId": "guided-cognitive-trap-lab",
+  "name": "Guided cognitive trap lab",
+  "bestFor": [
+    "bias-teaching pages",
+    "annotated source reading",
+    "split-view case analysis",
+    "self-study or classroom walkthrough cases"
+  ],
+  "layoutPrinciple": "Pair the source document with a guided analysis rail so learners move from context to assumptions, evidence, traps, mitigations, and expert synthesis in a fixed instructional sequence.",
+  "sectionOrder": [
+    "hero",
+    "case-switcher",
+    "case-overview",
+    "source-document",
+    "context-understanding",
+    "assumption-identification",
+    "evidence-evaluation",
+    "cognitive-trap-detection",
+    "mitigation-design",
+    "expert-analysis"
+  ],
+  "interactionPatterns": [
+    "sticky header and case switcher",
+    "collapsible overview and phase sections",
+    "split layout with source panel and analysis panel",
+    "bias badges linked to deeper explanation cards",
+    "expert walkthrough revealed after independent analysis"
+  ],
+  "uiNotes": [
+    "Keep the source text visually heavy enough that learners still read it, not just the commentary.",
+    "Use a numbered phase rail to reinforce analysis order.",
+    "Treat evidence, biases, and mitigations as separate teaching moves instead of one blended block.",
+    "Expert analysis should feel like a reveal or walkthrough, not the first thing the learner sees.",
+    "Preserve the teaching-artifact feel; do not turn this pattern into a generic dashboard."
+  ],
+  "deidentificationNotes": [
+    "Derived from a classroom HTML artifact after removing instructor identity, course identifiers, and source-specific branding.",
+    "Preserve reusable interface structure and instructional flow, not personal or institution-specific metadata."
+  ],
+  "referencePage": "../reference-pages/guided-cognitive-trap-lab.html"
+}

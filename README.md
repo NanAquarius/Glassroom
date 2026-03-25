@@ -40,6 +40,8 @@ Planned public-facing module families include:
 - case HTML rendering
 - course writing outputs
 
+The repository now also includes the start of a public-safe UI template library under [`docs/ui-template-library/`](./docs/ui-template-library/) for preserving de-identified teaching page patterns.
+
 ## Repository layout
 
 ```text

@@ -1,0 +1,18 @@
+{
+  "title": "",
+  "url": "",
+  "date": "",
+  "authorOrInstitution": "",
+  "contentSnippet": "",
+  "notes": "",
+  "courseRelevance": "",
+  "provider": "",
+  "fetchStatus": "ok|error",
+  "extractionMethod": "",
+  "canonicalId": "",
+  "subject": "",
+  "fullText": "",
+  "fullTextCharCount": 0,
+  "retrievalQuality": "high|medium|low|insufficient",
+  "hasSufficientText": true
+}

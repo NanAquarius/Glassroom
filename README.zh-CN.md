@@ -383,6 +383,13 @@ Glassroom 现在还处在早期 extraction 阶段。
 
 接下来会继续把本地 Glassroom 里更成熟、也更适合公开的部分一点点抽出来，而不是一股脑倒进去。
 
+## 参考书目
+
+下面两本书现在已经纳入 Glassroom 当前方向背后的工作参考书目：
+
+- *OSINT Techniques: Resources for Uncovering Online Information* — Michael Bazzell, Jason Edison（2024）
+- *Structured Analytic Techniques for Intelligence Analysis* — CQ Press（2020）
+
 ## License
 
 MIT

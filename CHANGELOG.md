@@ -2,6 +2,12 @@
 
 All notable changes to Glassroom will be documented in this file.
 
+## [0.2.3] - 2026-03-26
+
+### Changed
+
+- Added two working reference books to the README reference section: *OSINT Techniques* (2024) and *Structured Analytic Techniques for Intelligence Analysis* (2020).
+
 ## [0.2.2] - 2026-03-26
 
 ### Changed

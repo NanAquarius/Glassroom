@@ -385,6 +385,13 @@ But it is now past the “docs-only” stage: the core contract is public, the f
 
 Expect the schema, examples, module boundaries, and public-safe renderer layer to keep improving as more of the local Glassroom system is opened up.
 
+## Reference books
+
+These two books are now part of the working reference set behind Glassroom's current direction:
+
+- *OSINT Techniques: Resources for Uncovering Online Information* — Michael Bazzell, Jason Edison (2024)
+- *Structured Analytic Techniques for Intelligence Analysis* — CQ Press (2020)
+
 ## License
 
 MIT

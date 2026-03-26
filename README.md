@@ -2,10 +2,10 @@
 
 # Glassroom
 
-[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![Python](https://img.shields.io/badge/python-3.x-3776AB)](#quick-start)
-[![Markdown](https://img.shields.io/badge/markdown-docs-000000)](#what-glassroom-is)
-[![JavaScript](https://img.shields.io/badge/javascript-cli-F7DF1E?logo=javascript&logoColor=000)](#installation)
+[![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](./LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](#quick-start)
+[![Markdown](https://img.shields.io/badge/Markdown-Docs-111827?style=flat-square&logo=markdown&logoColor=white)](#what-glassroom-is)
+[![Node.js CLI](https://img.shields.io/badge/Node.js-CLI-339933?style=flat-square&logo=node.js&logoColor=white)](#installation)
 
 > 🧭 *An open-source workflow core and mountable skill suite for turning case-based intelligence analysis into structured, teachable, reusable artifacts.*
 

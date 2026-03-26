@@ -2,26 +2,32 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const { spawnSync } = require('child_process');
+const pkg = require('../package.json');
 
 const repoRoot = path.resolve(__dirname, '..');
 const skillsRoot = path.join(repoRoot, 'skills');
+const packagesRoot = path.join(repoRoot, 'packages');
 
 function usage() {
-  console.log(`Glassroom CLI
+  console.log(`Glassroom CLI v${pkg.version}
 
 Structured intelligence analysis workflow core and OpenClaw integration surface.
 
 Current commands:
+  glassroom --help
+  glassroom --version
+  glassroom version
   glassroom list-skills [--json]
   glassroom install openclaw [--mode auto|copy|symlink] [--skills a,b,c] [--target <dir>] [--force]
   glassroom install project  [--mode auto|copy|symlink] [--skills a,b,c] [--target <dir>] [--force]
+  glassroom assemble case --out-json <file> [--out-md <file>] [--base-case <file>] [--source-card <file>] [--bias-analysis <file>] [--mitigation-pack <file>] [--structured-analysis <file>]
 
 Planned analysis commands:
   glassroom init
   glassroom ingest source
   glassroom analyze bias
   glassroom analyze structured
-  glassroom assemble case
   glassroom render html
 
 Defaults:
@@ -53,7 +59,7 @@ function parseArgs(argv) {
       continue;
     }
     const key = token.slice(2);
-    if (key === 'force' || key === 'json' || key === 'help') {
+    if (key === 'force' || key === 'json' || key === 'help' || key === 'version') {
       args[key] = true;
       continue;
     }
@@ -157,10 +163,61 @@ function doInstall(targetKind, args) {
   for (const row of skipped) console.log(`- ${row.skill} (${row.reason})`);
 }
 
+function runPythonScript(scriptPath, forwardedArgs) {
+  const candidates = process.platform === 'win32' ? ['python', 'py'] : ['python3', 'python'];
+  let lastError = null;
+
+  for (const bin of candidates) {
+    const result = spawnSync(bin, [scriptPath, ...forwardedArgs], { stdio: 'inherit' });
+    if (result.error) {
+      lastError = result.error;
+      continue;
+    }
+    process.exit(result.status ?? 0);
+  }
+
+  throw new Error(`Unable to run Python script (${scriptPath}). Last error: ${lastError ? lastError.message : 'python not found'}`);
+}
+
+function doAssemble(sub, args) {
+  if (sub !== 'case') {
+    throw new Error('Usage: glassroom assemble case --out-json <file> [--out-md <file>] [--base-case <file>] [--source-card <file>] [--bias-analysis <file>] [--mitigation-pack <file>] [--structured-analysis <file>]');
+  }
+
+  if (!args['out-json']) {
+    throw new Error('Missing required --out-json for glassroom assemble case');
+  }
+
+  const scriptPath = path.join(packagesRoot, 'case-assembler', 'assemble_case.py');
+  const forwardedArgs = [];
+  const mappings = [
+    ['base-case', '--base-case'],
+    ['source-card', '--source-card'],
+    ['bias-analysis', '--bias-analysis'],
+    ['mitigation-pack', '--mitigation-pack'],
+    ['structured-analysis', '--structured-analysis'],
+    ['out-json', '--out-json'],
+    ['out-md', '--out-md'],
+  ];
+
+  for (const [key, flag] of mappings) {
+    if (args[key]) {
+      forwardedArgs.push(flag, args[key]);
+    }
+  }
+
+  runPythonScript(scriptPath, forwardedArgs);
+}
+
 function main() {
   try {
     const args = parseArgs(process.argv.slice(2));
     const [cmd, sub] = args._;
+
+    if (args.version || cmd === 'version' || cmd === '--version') {
+      console.log(pkg.version);
+      return;
+    }
 
     if (args.help || !cmd || cmd === 'help' || cmd === '--help' || cmd === '-h') {
       usage();
@@ -177,6 +234,11 @@ function main() {
         throw new Error('Usage: glassroom install <openclaw|project>');
       }
       doInstall(sub, args);
+      return;
+    }
+
+    if (cmd === 'assemble') {
+      doAssemble(sub, args);
       return;
     }
 

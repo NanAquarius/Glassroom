@@ -1,8 +1,25 @@
 {
   "name": "glassroom",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "CLI and workflow core for structured intelligence analysis",
   "license": "MIT",
+  "homepage": "https://github.com/NanAquarius/Glassroom",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NanAquarius/Glassroom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NanAquarius/Glassroom/issues"
+  },
+  "keywords": [
+    "intelligence-analysis",
+    "structured-analysis",
+    "osint",
+    "workflow",
+    "case-object",
+    "openclaw",
+    "cli"
+  ],
   "bin": {
     "glassroom": "bin/glassroom.js"
   },
@@ -15,6 +32,9 @@
     "examples/",
     "README.md",
     "README.zh-CN.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
     "LICENSE"
   ],
   "engines": {

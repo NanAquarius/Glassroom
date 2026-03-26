@@ -7,11 +7,11 @@
 [![Markdown](https://img.shields.io/badge/Markdown-Docs-111827?style=flat-square&logo=markdown&logoColor=white)](#what-glassroom-is)
 [![Node.js CLI](https://img.shields.io/badge/Node.js-CLI-339933?style=flat-square&logo=node.js&logoColor=white)](#installation)
 
-> 🧭 *An open-source workflow core and mountable skill suite for turning case-based intelligence analysis into structured, teachable, reusable artifacts.*
+> 🧭 *A structured intelligence analysis CLI and workflow core for turning raw sources into reusable analytic artifacts.*
 
 Glassroom is a CLI and workflow core for structured intelligence analysis.
 
-It is designed to help you move from raw sources to reusable analytic artifacts: source bundles, bias analysis, structured analysis, shared case objects, and downstream teaching or writing outputs.
+It helps move from raw sources to reusable outputs such as source bundles, bias analysis, structured analysis, shared case objects, and downstream teaching or writing artifacts.
 
 ## Install
 
@@ -20,20 +20,17 @@ npx glassroom install openclaw
 npx glassroom install project
 ```
 
-Current install-oriented commands:
+Current working commands:
 
 - `glassroom install openclaw`
 - `glassroom install project`
 - `glassroom list-skills`
-
-Planned analysis-oriented commands:
-
-- `glassroom init`
-- `glassroom ingest source`
-- `glassroom analyze bias`
-- `glassroom analyze structured`
 - `glassroom assemble case`
-- `glassroom render html`
+
+Version commands:
+
+- `glassroom --version`
+- `glassroom version`
 
 Install only selected skills:
 
@@ -47,16 +44,17 @@ List available skills:
 npx glassroom list-skills
 ```
 
-One-line prompt for AI CLIs:
+Assemble a shared case object:
 
-```text
-Run `npx glassroom install project` in this workspace and tell me which Glassroom skills are now available.
-```
-
-If the tool has access to your OpenClaw workspace:
-
-```text
-Run `npx glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
+```bash
+glassroom assemble case \
+  --base-case examples/base-case.json \
+  --source-card examples/source-card.json \
+  --bias-analysis examples/bias-analysis.json \
+  --mitigation-pack examples/mitigation-pack.json \
+  --structured-analysis examples/structured-analysis.json \
+  --out-json /tmp/glassroom-case.json \
+  --out-md /tmp/glassroom-case.md
 ```
 
 If npm is unavailable, see [Installation](#installation) for GitHub and manual fallback paths.
@@ -64,21 +62,19 @@ If npm is unavailable, see [Installation](#installation) for GitHub and manual f
 <a id="what-glassroom-is"></a>
 ## ✨ What Glassroom is
 
-Glassroom is **not just an agent** and **not just a single skill**.
+Glassroom is not just an agent prompt pack and not just a single skill.
 
 It is a project with two layers:
 
-- a **workflow core**
+- a workflow core
   - shared case object
   - intermediate artifacts
   - reusable analysis modules
 
-- a **mountable skill suite**
-  - `skills/glassroom-router`
-  - `skills/glassroom-case-assembler`
-  - `skills/glassroom-cognitive-bias`
-  - `skills/glassroom-structured-analysis`
-  - `skills/glassroom-source-intake`
+- an integration layer
+  - mountable OpenClaw skills
+  - a CLI surface
+  - public-safe docs and templates
 
 Use Glassroom when you want a workflow that can:
 
@@ -91,13 +87,12 @@ Use Glassroom when you want a workflow that can:
 <a id="what-glassroom-is-not"></a>
 ## 🚫 What Glassroom is not
 
-It is **not** trying to be:
+It is not trying to be:
 
 - a generic essay generator
-- a pile of unrelated course prompts
-- a direct republishing channel for classroom-owned artifacts
-- a promise that every private teaching asset should become public
-- a finished platform before the core contract is stable
+- a pile of unrelated classroom prompts
+- a direct republication channel for classroom-owned artifacts
+- a finished end-user platform before the core workflow contract is stable
 
 The open-source rule is simple: publish the portable backbone first, then add public-safe modules that can stand on their own.
 
@@ -105,6 +100,21 @@ The open-source rule is simple: publish the portable backbone first, then add pu
 ## ⚡ Quick start
 
 The fastest path right now is to assemble a shared case object from public-safe example inputs.
+
+### CLI path
+
+```bash
+glassroom assemble case \
+  --base-case examples/base-case.json \
+  --source-card examples/source-card.json \
+  --bias-analysis examples/bias-analysis.json \
+  --mitigation-pack examples/mitigation-pack.json \
+  --structured-analysis examples/structured-analysis.json \
+  --out-json /tmp/glassroom-case.json \
+  --out-md /tmp/glassroom-case.md
+```
+
+### Package script path
 
 ```bash
 python3 packages/case-assembler/assemble_case.py \
@@ -205,7 +215,7 @@ The installer exists to make that process shorter, cleaner, and easier to repeat
 <a id="current-public-scope"></a>
 ## 🧩 Current public scope
 
-This initial public release includes:
+This public release includes:
 
 - a shared Glassroom case schema
 - a workflow contract describing how modules enrich that schema
@@ -214,10 +224,8 @@ This initial public release includes:
 - `structured-analysis`
 - `source-intake`
 - a de-identified UI template reference library
-- a first mountable open-source `skills/` layer
-- an installer CLI that makes the skill suite easier to mount
-
-This repository is intentionally starting small.
+- a mountable open-source `skills/` layer
+- a CLI with install commands and a first real analysis command: `assemble case`
 
 The goal is not to dump everything at once, but to open the stable backbone first and expand from there.
 
@@ -283,28 +291,23 @@ But the shared schema is the backbone that lets source intake, bias analysis, st
 - [`packages/source-intake/`](./packages/source-intake/)
   - fetches, classifies, and structures source materials with provider-aware retrieval for stronger upstream evidence
 
-### Mountable skill layer
+### Integration layer
 
 - [`skills/glassroom-router/`](./skills/glassroom-router/)
 - [`skills/glassroom-source-intake/`](./skills/glassroom-source-intake/)
 - [`skills/glassroom-case-assembler/`](./skills/glassroom-case-assembler/)
 - [`skills/glassroom-cognitive-bias/`](./skills/glassroom-cognitive-bias/)
 - [`skills/glassroom-structured-analysis/`](./skills/glassroom-structured-analysis/)
+- [`bin/glassroom.js`](./bin/glassroom.js)
 
-These skills are package-backed.
+These integration surfaces sit on top of the package layer.
 
-That means the executable path lives in `packages/`, while `skills/` provides the mountable skill shape and task-routing surface.
-
-### Planned expansion
-
-- OSINT pitfalls and mitigations
-- case HTML rendering
-- course writing outputs
+That means the executable path lives in `packages/`, while `skills/` and `bin/` provide mountable and CLI-facing entry points.
 
 <a id="ui-template-library"></a>
 ## 🎨 UI template library
 
-Glassroom now also includes the beginning of a public-safe UI template library:
+Glassroom also includes the beginning of a public-safe UI template library:
 
 - [`docs/ui-template-library/README.md`](./docs/ui-template-library/README.md)
 - [`docs/ui-template-library/templates/`](./docs/ui-template-library/templates/)
@@ -312,7 +315,7 @@ Glassroom now also includes the beginning of a public-safe UI template library:
 
 This library is for preserving reusable teaching-page structure after de-identification.
 
-It is **not** a dump of classroom-owned pages.
+It is not a dump of classroom-owned pages.
 
 The rule is to preserve instructional flow, information architecture, and reusable UI logic while removing personal, instructor, course-owner, and source-specific identity markers.
 
@@ -338,6 +341,9 @@ Glassroom/
 │   ├── glassroom-cognitive-bias/
 │   └── glassroom-structured-analysis/
 ├── package.json
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
 ├── .gitignore
 ├── LICENSE
 ├── README.md
@@ -347,21 +353,18 @@ Glassroom/
 <a id="roadmap-direction"></a>
 ## 🛣 Roadmap direction
 
-Planned public-facing module families include:
+Near-term priorities:
+
+1. strengthen the CLI around real analysis commands
+2. expand source-ingestion coverage
+3. expose more reusable renderer and delivery layers
+4. keep OpenClaw integration thin and package-backed
+
+Planned public-facing module families still include:
 
 - OSINT pitfalls and mitigations
 - case HTML rendering
 - course writing outputs
-
-The repo is being opened in layers.
-
-That means the order matters:
-
-1. shared schema
-2. workflow contract
-3. reusable analysis modules
-4. de-identified UI patterns
-5. downstream renderers and delivery modules
 
 <a id="design-principles"></a>
 ## 📐 Design principles
@@ -377,13 +380,25 @@ That means the order matters:
 
 Glassroom is still in an early extraction phase.
 
-The core contract is now public, the first analysis modules are public, the first de-identified UI reference pattern is public, and the repository now has an installer CLI that makes the mountable skill layer easier to use.
+But it is now past the “docs-only” stage: the core contract is public, the first analysis modules are public, the first de-identified UI reference pattern is public, and the CLI now includes both install flows and a first real analysis command.
 
 Expect the schema, examples, module boundaries, and public-safe renderer layer to keep improving as more of the local Glassroom system is opened up.
 
 ## License
 
 MIT
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md).
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## Security
+
+See [SECURITY.md](./SECURITY.md).
 
 ---
 

@@ -7,7 +7,7 @@
 [![Markdown](https://img.shields.io/badge/Markdown-Docs-111827?style=flat-square&logo=markdown&logoColor=white)](#what-glassroom-is)
 [![Node.js CLI](https://img.shields.io/badge/Node.js-CLI-339933?style=flat-square&logo=node.js&logoColor=white)](#installation)
 
-> 🧭 *把案例型情报分析组织成结构化、可教学、可复用、可挂载的开源工作流核心与 Skill 套件。*
+> 🧭 *一个面向结构化情报分析的 CLI 与工作流内核，把原始来源组织成可复用的分析产物。*
 
 Glassroom 是一个面向结构化情报分析的 CLI 与工作流内核。
 
@@ -20,20 +20,17 @@ npx glassroom install openclaw
 npx glassroom install project
 ```
 
-当前偏安装导向的命令：
+当前已经可用的命令：
 
 - `glassroom install openclaw`
 - `glassroom install project`
 - `glassroom list-skills`
-
-计划中的分析导向命令：
-
-- `glassroom init`
-- `glassroom ingest source`
-- `glassroom analyze bias`
-- `glassroom analyze structured`
 - `glassroom assemble case`
-- `glassroom render html`
+
+版本命令：
+
+- `glassroom --version`
+- `glassroom version`
 
 只安装指定 skills：
 
@@ -47,16 +44,17 @@ npx glassroom install openclaw --skills glassroom-router,glassroom-source-intake
 npx glassroom list-skills
 ```
 
-给 AI CLI 的一句话安装提示：
+组装共享 case object：
 
-```text
-Run `npx glassroom install project` in this workspace and tell me which Glassroom skills are now available.
-```
-
-如果工具可以访问你的 OpenClaw workspace：
-
-```text
-Run `npx glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
+```bash
+glassroom assemble case \
+  --base-case examples/base-case.json \
+  --source-card examples/source-card.json \
+  --bias-analysis examples/bias-analysis.json \
+  --mitigation-pack examples/mitigation-pack.json \
+  --structured-analysis examples/structured-analysis.json \
+  --out-json /tmp/glassroom-case.json \
+  --out-md /tmp/glassroom-case.md
 ```
 
 如果 npm 暂时不可用，见下方 [安装方式](#installation) 中的 GitHub 与手动 fallback。
@@ -64,51 +62,59 @@ Run `npx glassroom install openclaw` and tell me which Glassroom skills were ins
 <a id="what-glassroom-is"></a>
 ## ✨ Glassroom 到底是什么
 
-Glassroom **不是单个 Agent**，也**不是单个 Skill**。
+Glassroom 不是单个 Agent，也不是单个 Skill。
 
 它更像一个两层结构的项目：
 
-- **workflow core**
+- workflow core
   - shared case object
   - 中间产物
   - 可复用分析模块
 
-- **mountable skill suite**
-  - `skills/glassroom-router`
-  - `skills/glassroom-case-assembler`
-  - `skills/glassroom-cognitive-bias`
-  - `skills/glassroom-structured-analysis`
-  - `skills/glassroom-source-intake`
+- integration layer
+  - 可挂载的 OpenClaw skills
+  - CLI 入口
+  - public-safe 文档与模板
 
-如果你要的只是“让 AI 写点内容”，这不是它的重点。
-
-Glassroom 更适合下面这些事情：
+如果你需要的是一条从原始来源走向结构化分析产物的路径，Glassroom 更适合下面这些事情：
 
 - 把分散的分析结果收束成共享 case object
 - 让 source、bias、mitigation、structured analysis 这些层彼此连通
 - 为后续 HTML 教学页、课程写作、讲授材料保留稳定输入
-- 把“流程能力”沉淀成 schema 和模块，而不是只藏在 prompt 里
+- 把流程能力沉淀成 schema 和模块，而不是只藏在 prompt 里
 - 保留真正可复用的教学界面结构，而不是反复做一次性课件
 
 <a id="what-glassroom-is-not"></a>
 ## 🚫 它不是什么
 
-它 **不是**：
+它不是：
 
 - 通用型作文生成器
 - 一堆彼此无关的课堂 prompt 集合
 - 课堂原始资产的直接公开通道
-- 任何私有教学材料都应该无差别开源的理由
-- 在核心契约还没稳定前就急着做成大而全平台
+- 在核心工作流契约还没稳定前就急着做成大而全平台
 
-Glassroom 的开源思路很明确：
-
-先公开可移植的骨架，再逐步放出真正 public-safe、能独立成立的模块。
+Glassroom 的开源思路很明确：先公开可移植的骨架，再逐步放出真正 public-safe、能独立成立的模块。
 
 <a id="quick-start"></a>
 ## ⚡ 快速开始
 
-当前最快的体验方式，是用仓库里已经准备好的 public-safe 示例输入，先组装一个共享 case object：
+当前最快的体验方式，是用仓库里已经准备好的 public-safe 示例输入，先组装一个共享 case object。
+
+### CLI 路径
+
+```bash
+glassroom assemble case \
+  --base-case examples/base-case.json \
+  --source-card examples/source-card.json \
+  --bias-analysis examples/bias-analysis.json \
+  --mitigation-pack examples/mitigation-pack.json \
+  --structured-analysis examples/structured-analysis.json \
+  --out-json /tmp/glassroom-case.json \
+  --out-md /tmp/glassroom-case.md
+```
+
+### Package 脚本路径
 
 ```bash
 python3 packages/case-assembler/assemble_case.py \
@@ -121,7 +127,7 @@ python3 packages/case-assembler/assemble_case.py \
   --out-md /tmp/glassroom-case.md
 ```
 
-如果你想分别看分析模块，也可以直接跑：
+如果你想分别跑分析模块，也可以直接执行：
 
 ```bash
 python3 packages/cognitive-bias/build_bias_analysis.py \
@@ -133,14 +139,17 @@ python3 packages/structured-analysis/build_structured_analysis.py \
   --input examples/structured-analysis-input.json \
   --out-json /tmp/structured-analysis.json \
   --out-md /tmp/structured-analysis.md
-```
 
-也就是说，现阶段公开出来的模块不是摆设，已经能直接跑通。
+python3 packages/source-intake/fetch_source_bundle.py \
+  --input examples/source-input.json \
+  --out-json /tmp/source-bundle.json \
+  --out-md /tmp/source-bundle.md
+```
 
 <a id="installation"></a>
 ## 📦 安装方式
 
-Glassroom 现在已经带有安装器 CLI。
+Glassroom 已经带有安装器 CLI。
 
 推荐安装路径现在是 npm。
 
@@ -215,9 +224,8 @@ Run `npx glassroom install openclaw` and tell me which Glassroom skills were ins
 - `structured-analysis`
 - `source-intake`
 - 一套去标识化后的 UI 模板参考库
-- 第一批可挂载的开源 `skills/` 层
-
-这套公开版本故意从“小而稳”开始。
+- 一层可挂载的开源 `skills/`
+- 一个已经具备安装命令与首个真实分析命令 `assemble case` 的 CLI
 
 目标不是一口气把所有本地能力扔出来，而是先把最稳、最适合公开、最能形成骨架的部分开出来。
 
@@ -255,7 +263,7 @@ base-case.json
 <a id="shared-unit-of-work"></a>
 ## 🔧 共享工作单元
 
-Glassroom 默认使用共享 **case object** 作为工作单元。
+Glassroom 默认使用共享 case object 作为工作单元。
 
 相关文件在这里：
 
@@ -283,23 +291,18 @@ Glassroom 默认使用共享 **case object** 作为工作单元。
 - [`packages/source-intake/`](./packages/source-intake/)
   - 抓取、分类并结构化来源材料，支持更强的上游原始材料获取
 
-### 可挂载 Skill 层
+### Integration 层
 
 - [`skills/glassroom-router/`](./skills/glassroom-router/)
 - [`skills/glassroom-source-intake/`](./skills/glassroom-source-intake/)
 - [`skills/glassroom-case-assembler/`](./skills/glassroom-case-assembler/)
 - [`skills/glassroom-cognitive-bias/`](./skills/glassroom-cognitive-bias/)
 - [`skills/glassroom-structured-analysis/`](./skills/glassroom-structured-analysis/)
+- [`bin/glassroom.js`](./bin/glassroom.js)
 
-这些 Skills 是 **package-backed** 的。
+这些 Integration surface 架在 package 层之上。
 
-也就是说：真正的执行逻辑在 `packages/`，而 `skills/` 负责提供可挂载的 skill 形态与任务路由入口。
-
-### 后续扩展方向
-
-- OSINT pitfalls and mitigations
-- case HTML rendering
-- course writing outputs
+也就是说：真正的执行逻辑在 `packages/`，而 `skills/` 与 `bin/` 分别提供可挂载入口和 CLI 入口。
 
 <a id="ui-template-library"></a>
 ## 🎨 UI 模板库
@@ -312,11 +315,7 @@ Glassroom 现在也开始有一套 public-safe UI template library：
 
 这套库的定位，不是拿来原样复刻课堂页面。
 
-它的作用是：
-
-在去标识化之后，把真正可复用的教学结构、信息架构和 UI 逻辑保留下来。
-
-也就是说，保留的是教学骨架，不是个人归属信息，也不是某门课的私有页面皮肤。
+它的作用，是在去标识化之后，把真正可复用的教学结构、信息架构和 UI 逻辑保留下来。
 
 <a id="repository-layout"></a>
 ## 🗂 仓库结构
@@ -340,6 +339,9 @@ Glassroom/
 │   ├── glassroom-cognitive-bias/
 │   └── glassroom-structured-analysis/
 ├── package.json
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
 ├── .gitignore
 ├── LICENSE
 ├── README.md
@@ -349,21 +351,18 @@ Glassroom/
 <a id="roadmap-direction"></a>
 ## 🛣 路线图方向
 
-Glassroom 后续适合继续公开的模块族，大致包括：
+近阶段优先级：
+
+1. 继续把 CLI 往真实分析命令扩展
+2. 扩大 source-ingestion coverage
+3. 逐步公开更多 renderer 与 delivery 层
+4. 继续保持 OpenClaw integration 的轻薄与 package-backed 结构
+
+后续适合继续公开的模块族，仍然包括：
 
 - OSINT pitfalls and mitigations
 - case HTML rendering
 - course writing outputs
-
-但它不会乱序推进。
-
-目前更合理的节奏是：
-
-1. shared schema
-2. workflow contract
-3. reusable analysis modules
-4. de-identified UI patterns
-5. downstream renderers and delivery modules
 
 <a id="design-principles"></a>
 ## 📐 设计原则
@@ -379,13 +378,25 @@ Glassroom 后续适合继续公开的模块族，大致包括：
 
 Glassroom 现在还处在早期 extraction 阶段。
 
-核心 contract 已公开，第一批分析模块已公开，第一批去标识化 UI 参考模式也已公开，同时仓库已经开始具备可挂载 Skill 套件与 installer CLI 的形态。
+但它已经不再是“只有文档的仓库”了：核心 contract 已公开，第一批分析模块已公开，第一批去标识化 UI 参考模式已公开，而 CLI 现在也已经同时具备安装命令和首个真实分析命令。
 
 接下来会继续把本地 Glassroom 里更成熟、也更适合公开的部分一点点抽出来，而不是一股脑倒进去。
 
 ## License
 
 MIT
+
+## Changelog
+
+见 [CHANGELOG.md](./CHANGELOG.md)。
+
+## Contributing
+
+见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+
+## Security
+
+见 [SECURITY.md](./SECURITY.md)。
 
 ---
 

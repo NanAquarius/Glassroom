@@ -3,9 +3,9 @@
 # Glassroom
 
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![Shared schema](https://img.shields.io/badge/schema-case%20object-7c3aed)](#shared-unit-of-work)
-[![Mountable skills](https://img.shields.io/badge/skills-mountable-0f766e)](#module-families)
-[![UI templates](https://img.shields.io/badge/ui%20templates-deidentified-9a3412)](#ui-template-library)
+[![Python](https://img.shields.io/badge/python-3.x-3776AB)](#quick-start)
+[![Markdown](https://img.shields.io/badge/markdown-docs-000000)](#what-glassroom-is)
+[![JavaScript](https://img.shields.io/badge/javascript-cli-F7DF1E?logo=javascript&logoColor=000)](#installation)
 
 > 🧭 *An open-source workflow core and mountable skill suite for turning case-based intelligence analysis into structured, teachable, reusable artifacts.*
 

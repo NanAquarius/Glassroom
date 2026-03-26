@@ -47,6 +47,7 @@ Glassroom **不是单个 Agent**，也**不是单个 Skill**。
   - `skills/glassroom-case-assembler`
   - `skills/glassroom-cognitive-bias`
   - `skills/glassroom-structured-analysis`
+  - `skills/glassroom-source-intake`
 
 如果你要的只是“让 AI 写点内容”，这不是它的重点。
 
@@ -108,87 +109,68 @@ python3 packages/structured-analysis/build_structured_analysis.py \
 <a id="installation"></a>
 ## 📦 安装方式
 
-Glassroom 现在有两种常见用法：
+Glassroom 现在已经带有安装器 CLI。
 
-- 直接把仓库当成 `packages/` 来使用
-- 把 `skills/` 下面的技能挂载到 agent workspace
+这意味着，推荐安装路径不再是长篇手动复制，而是直接走一条更短、更像正经开源项目的命令。
 
-### 面向 OpenClaw / workspace 型 agent 的手动安装
+### 安装到 OpenClaw workspace
 
-OpenClaw 会从 workspace 的 `skills/` 目录加载技能。最直接的做法，是 clone 本仓库后，把需要的 Glassroom skill 文件夹复制或软链接进你的活动工作区。
-
-#### Linux / macOS / WSL
+直接从 GitHub 执行：
 
 ```bash
-git clone https://github.com/NanAquarius/Glassroom.git
-cd Glassroom
-mkdir -p ~/.openclaw/workspace/skills
-ln -s "$(pwd)/skills/glassroom-router" ~/.openclaw/workspace/skills/glassroom-router
-ln -s "$(pwd)/skills/glassroom-case-assembler" ~/.openclaw/workspace/skills/glassroom-case-assembler
-ln -s "$(pwd)/skills/glassroom-cognitive-bias" ~/.openclaw/workspace/skills/glassroom-cognitive-bias
-ln -s "$(pwd)/skills/glassroom-structured-analysis" ~/.openclaw/workspace/skills/glassroom-structured-analysis
+npx github:NanAquarius/Glassroom install openclaw
 ```
 
-如果你不想用软链接，也可以直接复制：
+### 安装到当前项目 workspace
 
 ```bash
-cp -R skills/glassroom-router ~/.openclaw/workspace/skills/
-cp -R skills/glassroom-case-assembler ~/.openclaw/workspace/skills/
-cp -R skills/glassroom-cognitive-bias ~/.openclaw/workspace/skills/
-cp -R skills/glassroom-structured-analysis ~/.openclaw/workspace/skills/
+npx github:NanAquarius/Glassroom install project
 ```
 
-#### Windows PowerShell
-
-```powershell
-git clone https://github.com/NanAquarius/Glassroom.git
-cd Glassroom
-New-Item -ItemType Directory -Force "$HOME/.openclaw/workspace/skills" | Out-Null
-Copy-Item .\skills\glassroom-router "$HOME/.openclaw/workspace/skills\glassroom-router" -Recurse -Force
-Copy-Item .\skills\glassroom-case-assembler "$HOME/.openclaw/workspace/skills\glassroom-case-assembler" -Recurse -Force
-Copy-Item .\skills\glassroom-cognitive-bias "$HOME/.openclaw/workspace/skills\glassroom-cognitive-bias" -Recurse -Force
-Copy-Item .\skills\glassroom-structured-analysis "$HOME/.openclaw/workspace/skills\glassroom-structured-analysis" -Recurse -Force
-```
-
-### 安装到项目本地 `skills/` 目录
-
-如果你的 agent runtime 把当前项目目录本身当作 workspace，也可以直接把 Glassroom 的 skill 文件夹挂到 `./skills/`。
-
-#### Linux / macOS / WSL
+### 只安装指定 skills
 
 ```bash
-mkdir -p ./skills
-ln -s "$(pwd)/skills/glassroom-router" ./skills/glassroom-router
-ln -s "$(pwd)/skills/glassroom-case-assembler" ./skills/glassroom-case-assembler
-ln -s "$(pwd)/skills/glassroom-cognitive-bias" ./skills/glassroom-cognitive-bias
-ln -s "$(pwd)/skills/glassroom-structured-analysis" ./skills/glassroom-structured-analysis
+npx github:NanAquarius/Glassroom install openclaw --skills glassroom-router,glassroom-source-intake
 ```
 
-#### Windows PowerShell
+### 查看可用 Glassroom skills
 
-```powershell
-New-Item -ItemType Directory -Force .\skills | Out-Null
-Copy-Item .\skills\glassroom-router .\skills\glassroom-router -Recurse -Force
-Copy-Item .\skills\glassroom-case-assembler .\skills\glassroom-case-assembler -Recurse -Force
-Copy-Item .\skills\glassroom-cognitive-bias .\skills\glassroom-cognitive-bias -Recurse -Force
-Copy-Item .\skills\glassroom-structured-analysis .\skills\glassroom-structured-analysis -Recurse -Force
+```bash
+npx github:NanAquarius/Glassroom list-skills
 ```
 
-### 发给 Claude Code / OpenCode / 类似 CLI 的“一句话安装”
+### 未来的 npm 形态
+
+等 Glassroom 发布到 npm 后，同样的命令会自然变成：
+
+```bash
+npx glassroom install openclaw
+npx glassroom install project
+npx glassroom list-skills
+```
+
+### 发给 Claude Code / OpenCode / 类似 CLI 的一句话安装
 
 如果你是在 Claude Code、OpenCode 或类似 coding-agent CLI 里让 AI 帮你安装，可以直接发这句话：
 
 ```text
-Clone https://github.com/NanAquarius/Glassroom into this machine, then mount the folders under Glassroom/skills/ into the current workspace skills/ directory, and summarize which Glassroom skills are now available.
+Run `npx github:NanAquarius/Glassroom install project` in this workspace and tell me which Glassroom skills are now available.
 ```
 
 如果 AI 对你的 OpenClaw workspace 有访问权，也可以直接说：
 
 ```text
-Clone https://github.com/NanAquarius/Glassroom and mount the folders under Glassroom/skills/ into ~/.openclaw/workspace/skills/, then tell me which Glassroom skills were installed.
+Run `npx github:NanAquarius/Glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
 ```
 
-这里故意用的是通用说法，不依赖特定 CLI 的私有包管理命令，所以更容易跨 OpenCode、Claude Code 等环境复用。
+### 手动安装 fallback
+
+如果你暂时不想走 installer CLI，也依然可以 clone 仓库后，手动把 `skills/` 下面的目录复制或软链接到：
+
+- `~/.openclaw/workspace/skills/`
+- `./skills/`
+
+安装器的价值，就是把这套过程变得更短、更干净，也更方便重复执行。
 
 <a id="current-public-scope"></a>
 ## 🧩 当前已公开能力
@@ -200,6 +182,7 @@ Clone https://github.com/NanAquarius/Glassroom and mount the folders under Glass
 - `case-assembler`
 - `cognitive-bias`
 - `structured-analysis`
+- `source-intake`
 - 一套去标识化后的 UI 模板参考库
 - 第一批可挂载的开源 `skills/` 层
 
@@ -266,9 +249,13 @@ Glassroom 默认使用共享 **case object** 作为工作单元。
 - [`packages/structured-analysis/`](./packages/structured-analysis/)
   - 把 policy question、hypotheses、assumptions 与 evidence 组织成 structured-analysis artifact
 
+- [`packages/source-intake/`](./packages/source-intake/)
+  - 抓取、分类并结构化来源材料，支持更强的上游原始材料获取
+
 ### 可挂载 Skill 层
 
 - [`skills/glassroom-router/`](./skills/glassroom-router/)
+- [`skills/glassroom-source-intake/`](./skills/glassroom-source-intake/)
 - [`skills/glassroom-case-assembler/`](./skills/glassroom-case-assembler/)
 - [`skills/glassroom-cognitive-bias/`](./skills/glassroom-cognitive-bias/)
 - [`skills/glassroom-structured-analysis/`](./skills/glassroom-structured-analysis/)
@@ -279,7 +266,6 @@ Glassroom 默认使用共享 **case object** 作为工作单元。
 
 ### 后续扩展方向
 
-- source intake
 - OSINT pitfalls and mitigations
 - case HTML rendering
 - course writing outputs
@@ -306,19 +292,23 @@ Glassroom 现在也开始有一套 public-safe UI template library：
 
 ```text
 Glassroom/
+├── bin/
 ├── docs/
 │   └── ui-template-library/
 ├── examples/
 ├── packages/
 │   ├── case-assembler/
 │   ├── cognitive-bias/
+│   ├── source-intake/
 │   └── structured-analysis/
 ├── schemas/
 ├── skills/
 │   ├── glassroom-router/
+│   ├── glassroom-source-intake/
 │   ├── glassroom-case-assembler/
 │   ├── glassroom-cognitive-bias/
 │   └── glassroom-structured-analysis/
+├── package.json
 ├── .gitignore
 ├── LICENSE
 ├── README.md
@@ -330,10 +320,7 @@ Glassroom/
 
 Glassroom 后续适合继续公开的模块族，大致包括：
 
-- source intake
-- cognitive bias analysis
 - OSINT pitfalls and mitigations
-- structured analytic techniques
 - case HTML rendering
 - course writing outputs
 
@@ -361,7 +348,7 @@ Glassroom 后续适合继续公开的模块族，大致包括：
 
 Glassroom 现在还处在早期 extraction 阶段。
 
-核心 contract 已公开，第一批分析模块已公开，第一批去标识化 UI 参考模式也已公开，同时仓库已经开始具备可挂载 Skill 套件的形态。
+核心 contract 已公开，第一批分析模块已公开，第一批去标识化 UI 参考模式也已公开，同时仓库已经开始具备可挂载 Skill 套件与 installer CLI 的形态。
 
 接下来会继续把本地 Glassroom 里更成熟、也更适合公开的部分一点点抽出来，而不是一股脑倒进去。
 

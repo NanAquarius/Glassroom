@@ -1,0 +1,23 @@
+{
+  "name": "glassroom",
+  "version": "0.1.0",
+  "description": "Installer CLI for the Glassroom workflow core and mountable skill suite",
+  "license": "MIT",
+  "bin": {
+    "glassroom": "bin/glassroom.js"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "packages/",
+    "schemas/",
+    "docs/",
+    "examples/",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

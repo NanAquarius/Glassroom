@@ -47,6 +47,7 @@ It is a project with two layers:
   - `skills/glassroom-case-assembler`
   - `skills/glassroom-cognitive-bias`
   - `skills/glassroom-structured-analysis`
+  - `skills/glassroom-source-intake`
 
 Use Glassroom when you want a workflow that can:
 
@@ -85,7 +86,7 @@ python3 packages/case-assembler/assemble_case.py \
   --out-md /tmp/glassroom-case.md
 ```
 
-You can also run the two public analysis modules directly:
+You can also run the public analysis modules directly:
 
 ```bash
 python3 packages/cognitive-bias/build_bias_analysis.py \
@@ -97,92 +98,78 @@ python3 packages/structured-analysis/build_structured_analysis.py \
   --input examples/structured-analysis-input.json \
   --out-json /tmp/structured-analysis.json \
   --out-md /tmp/structured-analysis.md
+
+python3 packages/source-intake/fetch_source_bundle.py \
+  --input examples/source-input.json \
+  --out-json /tmp/source-bundle.json \
+  --out-md /tmp/source-bundle.md
 ```
 
 <a id="installation"></a>
 ## 📦 Installation
 
-There are two common ways to use Glassroom:
+Glassroom now ships with an installer CLI.
 
-- **use the packages directly** from this repository
-- **mount the skills** from `skills/` into an agent workspace
+That means the preferred install path is no longer a long manual copy recipe.
 
-### Manual install for OpenClaw / workspace-based agents
+### Install into an OpenClaw workspace
 
-OpenClaw loads skills from workspace `skills/` directories. The most direct manual install is to clone this repo, then copy or symlink the Glassroom skill folders into your active workspace.
-
-#### Linux / macOS / WSL
+Run directly from GitHub:
 
 ```bash
-git clone https://github.com/NanAquarius/Glassroom.git
-cd Glassroom
-mkdir -p ~/.openclaw/workspace/skills
-ln -s "$(pwd)/skills/glassroom-router" ~/.openclaw/workspace/skills/glassroom-router
-ln -s "$(pwd)/skills/glassroom-case-assembler" ~/.openclaw/workspace/skills/glassroom-case-assembler
-ln -s "$(pwd)/skills/glassroom-cognitive-bias" ~/.openclaw/workspace/skills/glassroom-cognitive-bias
-ln -s "$(pwd)/skills/glassroom-structured-analysis" ~/.openclaw/workspace/skills/glassroom-structured-analysis
+npx github:NanAquarius/Glassroom install openclaw
 ```
 
-If you prefer copies instead of symlinks:
+### Install into the current project workspace
 
 ```bash
-cp -R skills/glassroom-router ~/.openclaw/workspace/skills/
-cp -R skills/glassroom-case-assembler ~/.openclaw/workspace/skills/
-cp -R skills/glassroom-cognitive-bias ~/.openclaw/workspace/skills/
-cp -R skills/glassroom-structured-analysis ~/.openclaw/workspace/skills/
+npx github:NanAquarius/Glassroom install project
 ```
 
-#### Windows PowerShell
-
-```powershell
-git clone https://github.com/NanAquarius/Glassroom.git
-cd Glassroom
-New-Item -ItemType Directory -Force "$HOME/.openclaw/workspace/skills" | Out-Null
-Copy-Item .\skills\glassroom-router "$HOME/.openclaw/workspace/skills\glassroom-router" -Recurse -Force
-Copy-Item .\skills\glassroom-case-assembler "$HOME/.openclaw/workspace/skills\glassroom-case-assembler" -Recurse -Force
-Copy-Item .\skills\glassroom-cognitive-bias "$HOME/.openclaw/workspace/skills\glassroom-cognitive-bias" -Recurse -Force
-Copy-Item .\skills\glassroom-structured-analysis "$HOME/.openclaw/workspace/skills\glassroom-structured-analysis" -Recurse -Force
-```
-
-### Manual install into a project-local `skills/` directory
-
-If your agent runtime uses the current project folder as the workspace, you can also mount Glassroom by copying or symlinking the skill folders into `./skills/`.
-
-#### Linux / macOS / WSL
+### Install only selected skills
 
 ```bash
-mkdir -p ./skills
-ln -s "$(pwd)/skills/glassroom-router" ./skills/glassroom-router
-ln -s "$(pwd)/skills/glassroom-case-assembler" ./skills/glassroom-case-assembler
-ln -s "$(pwd)/skills/glassroom-cognitive-bias" ./skills/glassroom-cognitive-bias
-ln -s "$(pwd)/skills/glassroom-structured-analysis" ./skills/glassroom-structured-analysis
+npx github:NanAquarius/Glassroom install openclaw --skills glassroom-router,glassroom-source-intake
 ```
 
-#### Windows PowerShell
+### List available Glassroom skills
 
-```powershell
-New-Item -ItemType Directory -Force .\skills | Out-Null
-Copy-Item .\skills\glassroom-router .\skills\glassroom-router -Recurse -Force
-Copy-Item .\skills\glassroom-case-assembler .\skills\glassroom-case-assembler -Recurse -Force
-Copy-Item .\skills\glassroom-cognitive-bias .\skills\glassroom-cognitive-bias -Recurse -Force
-Copy-Item .\skills\glassroom-structured-analysis .\skills\glassroom-structured-analysis -Recurse -Force
+```bash
+npx github:NanAquarius/Glassroom list-skills
+```
+
+### Future npm form
+
+After Glassroom is published to npm, the same commands become:
+
+```bash
+npx glassroom install openclaw
+npx glassroom install project
+npx glassroom list-skills
 ```
 
 ### One-sentence install prompt for AI CLIs
 
-For Claude Code, OpenCode, or similar coding-agent CLIs, you can give the AI a one-line install instruction like this:
+For Claude Code, OpenCode, or similar coding-agent CLIs, you can now use a much shorter install instruction:
 
 ```text
-Clone https://github.com/NanAquarius/Glassroom into this machine, then mount the folders under Glassroom/skills/ into the current workspace skills/ directory, and summarize which Glassroom skills are now available.
+Run `npx github:NanAquarius/Glassroom install project` in this workspace and tell me which Glassroom skills are now available.
 ```
 
-If the tool has access to your OpenClaw workspace, you can also say:
+Or, if the tool has access to your OpenClaw workspace:
 
 ```text
-Clone https://github.com/NanAquarius/Glassroom and mount the folders under Glassroom/skills/ into ~/.openclaw/workspace/skills/, then tell me which Glassroom skills were installed.
+Run `npx github:NanAquarius/Glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
 ```
 
-These prompts are intentionally generic so they work across CLI agents without assuming a tool-specific package manager.
+### Manual install fallback
+
+If you want a manual path instead of the installer CLI, you can still clone the repository and copy or symlink the folders under `skills/` into either:
+
+- `~/.openclaw/workspace/skills/`
+- `./skills/`
+
+The installer exists to make that process shorter, cleaner, and easier to repeat.
 
 <a id="current-public-scope"></a>
 ## 🧩 Current public scope
@@ -194,8 +181,10 @@ This initial public release includes:
 - `case-assembler`
 - `cognitive-bias`
 - `structured-analysis`
+- `source-intake`
 - a de-identified UI template reference library
-- a first mountable open-source `skills/` layer for router + reusable analysis skills
+- a first mountable open-source `skills/` layer
+- an installer CLI that makes the skill suite easier to mount
 
 This repository is intentionally starting small.
 
@@ -260,9 +249,13 @@ But the shared schema is the backbone that lets source intake, bias analysis, st
 - [`packages/structured-analysis/`](./packages/structured-analysis/)
   - turns a policy question, hypotheses, assumptions, and evidence into a structured-analysis artifact
 
+- [`packages/source-intake/`](./packages/source-intake/)
+  - fetches, classifies, and structures source materials with provider-aware retrieval for stronger upstream evidence
+
 ### Mountable skill layer
 
 - [`skills/glassroom-router/`](./skills/glassroom-router/)
+- [`skills/glassroom-source-intake/`](./skills/glassroom-source-intake/)
 - [`skills/glassroom-case-assembler/`](./skills/glassroom-case-assembler/)
 - [`skills/glassroom-cognitive-bias/`](./skills/glassroom-cognitive-bias/)
 - [`skills/glassroom-structured-analysis/`](./skills/glassroom-structured-analysis/)
@@ -273,7 +266,6 @@ That means the executable path lives in `packages/`, while `skills/` provides th
 
 ### Planned expansion
 
-- source intake
 - OSINT pitfalls and mitigations
 - case HTML rendering
 - course writing outputs
@@ -298,22 +290,27 @@ The rule is to preserve instructional flow, information architecture, and reusab
 
 ```text
 Glassroom/
+├── bin/
 ├── docs/
 │   └── ui-template-library/
 ├── examples/
 ├── packages/
 │   ├── case-assembler/
 │   ├── cognitive-bias/
+│   ├── source-intake/
 │   └── structured-analysis/
 ├── schemas/
 ├── skills/
 │   ├── glassroom-router/
+│   ├── glassroom-source-intake/
 │   ├── glassroom-case-assembler/
 │   ├── glassroom-cognitive-bias/
 │   └── glassroom-structured-analysis/
+├── package.json
 ├── .gitignore
 ├── LICENSE
-└── README.md
+├── README.md
+└── README.zh-CN.md
 ```
 
 <a id="roadmap-direction"></a>
@@ -321,10 +318,7 @@ Glassroom/
 
 Planned public-facing module families include:
 
-- source intake
-- cognitive bias analysis
 - OSINT pitfalls and mitigations
-- structured analytic techniques
 - case HTML rendering
 - course writing outputs
 
@@ -352,7 +346,7 @@ That means the order matters:
 
 Glassroom is still in an early extraction phase.
 
-The core contract is now public, the first analysis modules are public, and the first de-identified UI reference pattern is public.
+The core contract is now public, the first analysis modules are public, the first de-identified UI reference pattern is public, and the repository now has an installer CLI that makes the mountable skill layer easier to use.
 
 Expect the schema, examples, module boundaries, and public-safe renderer layer to keep improving as more of the local Glassroom system is opened up.
 

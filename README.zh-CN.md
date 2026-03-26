@@ -221,6 +221,7 @@ Run `npx glassroom install openclaw` and tell me which Glassroom skills were ins
 - 描述模块如何围绕该 schema 协作的 workflow contract
 - `case-assembler`
 - `cognitive-bias`
+  - 现在已经内置更完整的偏差目录与更像 tradecraft 的缓解动作
 - `structured-analysis`
 - `source-intake`
 - 一套去标识化后的 UI 模板参考库

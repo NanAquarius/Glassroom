@@ -1,6 +1,6 @@
 {
   "name": "glassroom",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CLI and workflow core for structured intelligence analysis",
   "license": "MIT",
   "homepage": "https://github.com/NanAquarius/Glassroom",

@@ -2,6 +2,15 @@
 
 All notable changes to Glassroom will be documented in this file.
 
+## [0.2.1] - 2026-03-26
+
+### Changed
+
+- Expanded the built-in Glassroom cognitive-bias catalog from 8 to 12 bias types.
+- Upgraded mitigations from short generic advice to more explicit intelligence-tradecraft-oriented corrective steps.
+- Added `recommendedTechnique`, `mitigationSteps`, and `sourceBasis` to bias-analysis outputs.
+- Added `docs/bias-catalog.md` and refreshed bias examples and package docs.
+
 ## [0.2.0] - 2026-03-26
 
 ### Added

@@ -221,6 +221,7 @@ This public release includes:
 - a workflow contract describing how modules enrich that schema
 - `case-assembler`
 - `cognitive-bias`
+  - now includes an expanded built-in bias catalog with tradecraft-oriented mitigation steps
 - `structured-analysis`
 - `source-intake`
 - a de-identified UI template reference library

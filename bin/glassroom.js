@@ -7,12 +7,22 @@ const repoRoot = path.resolve(__dirname, '..');
 const skillsRoot = path.join(repoRoot, 'skills');
 
 function usage() {
-  console.log(`Glassroom installer CLI
+  console.log(`Glassroom CLI
 
-Usage:
+Structured intelligence analysis workflow core and OpenClaw integration surface.
+
+Current commands:
   glassroom list-skills [--json]
   glassroom install openclaw [--mode auto|copy|symlink] [--skills a,b,c] [--target <dir>] [--force]
   glassroom install project  [--mode auto|copy|symlink] [--skills a,b,c] [--target <dir>] [--force]
+
+Planned analysis commands:
+  glassroom init
+  glassroom ingest source
+  glassroom analyze bias
+  glassroom analyze structured
+  glassroom assemble case
+  glassroom render html
 
 Defaults:
   install openclaw -> ~/.openclaw/workspace/skills
@@ -34,12 +44,16 @@ function parseArgs(argv) {
   const args = { _: [] };
   for (let i = 0; i < argv.length; i++) {
     const token = argv[i];
+    if (token === '-h') {
+      args.help = true;
+      continue;
+    }
     if (!token.startsWith('--')) {
       args._.push(token);
       continue;
     }
     const key = token.slice(2);
-    if (key === 'force' || key === 'json') {
+    if (key === 'force' || key === 'json' || key === 'help') {
       args[key] = true;
       continue;
     }
@@ -148,7 +162,7 @@ function main() {
     const args = parseArgs(process.argv.slice(2));
     const [cmd, sub] = args._;
 
-    if (!cmd || cmd === 'help' || cmd === '--help' || cmd === '-h') {
+    if (args.help || !cmd || cmd === 'help' || cmd === '--help' || cmd === '-h') {
       usage();
       return;
     }

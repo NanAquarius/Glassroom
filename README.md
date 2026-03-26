@@ -9,7 +9,9 @@
 
 > 🧭 *An open-source workflow core and mountable skill suite for turning case-based intelligence analysis into structured, teachable, reusable artifacts.*
 
-Glassroom is an open-source workflow core and mountable skill suite for case-based intelligence analysis.
+Glassroom is a CLI and workflow core for structured intelligence analysis.
+
+It is designed to help you move from raw sources to reusable analytic artifacts: source bundles, bias analysis, structured analysis, shared case objects, and downstream teaching or writing outputs.
 
 ## Install
 
@@ -17,6 +19,21 @@ Glassroom is an open-source workflow core and mountable skill suite for case-bas
 npx glassroom install openclaw
 npx glassroom install project
 ```
+
+Current install-oriented commands:
+
+- `glassroom install openclaw`
+- `glassroom install project`
+- `glassroom list-skills`
+
+Planned analysis-oriented commands:
+
+- `glassroom init`
+- `glassroom ingest source`
+- `glassroom analyze bias`
+- `glassroom analyze structured`
+- `glassroom assemble case`
+- `glassroom render html`
 
 Install only selected skills:
 

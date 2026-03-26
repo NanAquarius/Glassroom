@@ -1,7 +1,7 @@
 {
   "name": "glassroom",
   "version": "0.1.0",
-  "description": "Installer CLI for the Glassroom workflow core and mountable skill suite",
+  "description": "CLI and workflow core for structured intelligence analysis",
   "license": "MIT",
   "bin": {
     "glassroom": "bin/glassroom.js"

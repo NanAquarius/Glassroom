@@ -2,6 +2,12 @@
 
 All notable changes to Glassroom will be documented in this file.
 
+## [0.2.2] - 2026-03-26
+
+### Changed
+
+- Rewrote the project About / short description to: "Glassroom is a structured intelligence analysis CLI and workflow core. It turns raw sources into reusable case objects and analytic outputs."
+
 ## [0.2.1] - 2026-03-26
 
 ### Changed

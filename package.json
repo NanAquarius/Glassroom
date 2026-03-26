@@ -1,7 +1,7 @@
 {
   "name": "glassroom",
-  "version": "0.2.1",
-  "description": "CLI and workflow core for structured intelligence analysis",
+  "version": "0.2.2",
+  "description": "Glassroom is a structured intelligence analysis CLI and workflow core. It turns raw sources into reusable case objects and analytic outputs.",
   "license": "MIT",
   "homepage": "https://github.com/NanAquarius/Glassroom",
   "repository": {

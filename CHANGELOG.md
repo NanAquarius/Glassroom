@@ -2,6 +2,12 @@
 
 All notable changes to Glassroom will be documented in this file.
 
+## [0.2.4] - 2026-03-26
+
+### Changed
+
+- Added a Shell badge to the README header, matching the existing flat-square badge style.
+
 ## [0.2.3] - 2026-03-26
 
 ### Changed

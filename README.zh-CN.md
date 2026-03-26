@@ -9,26 +9,40 @@
 
 > 🧭 *把案例型情报分析组织成结构化、可教学、可复用、可挂载的开源工作流核心与 Skill 套件。*
 
-## 📚 目录
+Glassroom 是一个面向案例型情报分析的开源 workflow core 与可挂载 Skill 套件。
 
-- [✨ Glassroom 到底是什么](#what-glassroom-is)
-- [🚫 它不是什么](#what-glassroom-is-not)
-- [⚡ 快速开始](#quick-start)
-- [📦 安装方式](#installation)
-- [🧩 当前已公开能力](#current-public-scope)
-- [🗺 Workflow artifact map](#workflow-artifact-map)
-- [🔧 共享工作单元](#shared-unit-of-work)
-- [🧱 模块族谱](#module-families)
-- [🎨 UI 模板库](#ui-template-library)
-- [🗂 仓库结构](#repository-layout)
-- [🛣 路线图方向](#roadmap-direction)
-- [📐 设计原则](#design-principles)
-- [📌 当前状态](#status)
-- [License](#license)
+## 安装
 
-Glassroom 是一个面向案例型情报分析的开源 workflow core。
+```bash
+npx glassroom install openclaw
+npx glassroom install project
+```
 
-但更准确地说，它同时也是一套**可挂载的 Skill 套件**：仓库里既有可复用的 `packages/`、共享 schema、参考文档，也有可挂载到 agent 工作区里的 `skills/` 层。
+只安装指定 skills：
+
+```bash
+npx glassroom install openclaw --skills glassroom-router,glassroom-source-intake
+```
+
+查看可用 skills：
+
+```bash
+npx glassroom list-skills
+```
+
+给 AI CLI 的一句话安装提示：
+
+```text
+Run `npx glassroom install project` in this workspace and tell me which Glassroom skills are now available.
+```
+
+如果工具可以访问你的 OpenClaw workspace：
+
+```text
+Run `npx glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
+```
+
+如果 npm 暂时不可用，见下方 [安装方式](#installation) 中的 GitHub 与手动 fallback。
 
 <a id="what-glassroom-is"></a>
 ## ✨ Glassroom 到底是什么
@@ -111,56 +125,56 @@ python3 packages/structured-analysis/build_structured_analysis.py \
 
 Glassroom 现在已经带有安装器 CLI。
 
-这意味着，推荐安装路径不再是长篇手动复制，而是直接走一条更短、更像正经开源项目的命令。
+推荐安装路径现在是 npm。
 
-### 安装到 OpenClaw workspace
+### 从 npm 安装
 
-直接从 GitHub 执行：
-
-```bash
-npx github:NanAquarius/Glassroom install openclaw
-```
-
-### 安装到当前项目 workspace
-
-```bash
-npx github:NanAquarius/Glassroom install project
-```
-
-### 只安装指定 skills
-
-```bash
-npx github:NanAquarius/Glassroom install openclaw --skills glassroom-router,glassroom-source-intake
-```
-
-### 查看可用 Glassroom skills
-
-```bash
-npx github:NanAquarius/Glassroom list-skills
-```
-
-### 未来的 npm 形态
-
-等 Glassroom 发布到 npm 后，同样的命令会自然变成：
+安装到 OpenClaw workspace：
 
 ```bash
 npx glassroom install openclaw
+```
+
+安装到当前项目 workspace：
+
+```bash
 npx glassroom install project
+```
+
+只安装指定 skills：
+
+```bash
+npx glassroom install openclaw --skills glassroom-router,glassroom-source-intake
+```
+
+查看可用 Glassroom skills：
+
+```bash
 npx glassroom list-skills
 ```
 
-### 发给 Claude Code / OpenCode / 类似 CLI 的一句话安装
+### GitHub fallback
 
-如果你是在 Claude Code、OpenCode 或类似 coding-agent CLI 里让 AI 帮你安装，可以直接发这句话：
+如果 npm 暂时不可用，仍然可以直接从 GitHub 运行：
 
-```text
-Run `npx github:NanAquarius/Glassroom install project` in this workspace and tell me which Glassroom skills are now available.
+```bash
+npx github:NanAquarius/Glassroom install openclaw
+npx github:NanAquarius/Glassroom install project
+npx github:NanAquarius/Glassroom list-skills
 ```
 
-如果 AI 对你的 OpenClaw workspace 有访问权，也可以直接说：
+### 发给 AI CLI 的一句话安装
+
+如果你是在 Claude Code、OpenCode 或类似 coding-agent CLI 里让 AI 帮你安装：
 
 ```text
-Run `npx github:NanAquarius/Glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
+Run `npx glassroom install project` in this workspace and tell me which Glassroom skills are now available.
+```
+
+如果工具可以访问你的 OpenClaw workspace：
+
+```text
+Run `npx glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
 ```
 
 ### 手动安装 fallback

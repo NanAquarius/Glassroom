@@ -9,26 +9,40 @@
 
 > 🧭 *An open-source workflow core and mountable skill suite for turning case-based intelligence analysis into structured, teachable, reusable artifacts.*
 
-## 📚 Contents
+Glassroom is an open-source workflow core and mountable skill suite for case-based intelligence analysis.
 
-- [✨ What Glassroom is](#what-glassroom-is)
-- [🚫 What Glassroom is not](#what-glassroom-is-not)
-- [⚡ Quick start](#quick-start)
-- [📦 Installation](#installation)
-- [🧩 Current public scope](#current-public-scope)
-- [🗺 Workflow artifact map](#workflow-artifact-map)
-- [🔧 Shared unit of work](#shared-unit-of-work)
-- [🧱 Module families](#module-families)
-- [🎨 UI template library](#ui-template-library)
-- [🗂 Repository layout](#repository-layout)
-- [🛣 Roadmap direction](#roadmap-direction)
-- [📐 Design principles](#design-principles)
-- [📌 Status](#status)
-- [License](#license)
+## Install
 
-Glassroom is an open-source workflow core for case-based intelligence analysis.
+```bash
+npx glassroom install openclaw
+npx glassroom install project
+```
 
-More concretely, it is also a **mountable skill suite**: the repository contains reusable packages, shared schemas, reference docs, and a `skills/` layer that can be mounted into agent workspaces.
+Install only selected skills:
+
+```bash
+npx glassroom install openclaw --skills glassroom-router,glassroom-source-intake
+```
+
+List available skills:
+
+```bash
+npx glassroom list-skills
+```
+
+One-line prompt for AI CLIs:
+
+```text
+Run `npx glassroom install project` in this workspace and tell me which Glassroom skills are now available.
+```
+
+If the tool has access to your OpenClaw workspace:
+
+```text
+Run `npx glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
+```
+
+If npm is unavailable, see [Installation](#installation) for GitHub and manual fallback paths.
 
 <a id="what-glassroom-is"></a>
 ## ✨ What Glassroom is
@@ -108,58 +122,58 @@ python3 packages/source-intake/fetch_source_bundle.py \
 <a id="installation"></a>
 ## 📦 Installation
 
-Glassroom now ships with an installer CLI.
+Glassroom ships with an installer CLI.
 
-That means the preferred install path is no longer a long manual copy recipe.
+The preferred install path is npm.
 
-### Install into an OpenClaw workspace
+### Install from npm
 
-Run directly from GitHub:
-
-```bash
-npx github:NanAquarius/Glassroom install openclaw
-```
-
-### Install into the current project workspace
-
-```bash
-npx github:NanAquarius/Glassroom install project
-```
-
-### Install only selected skills
-
-```bash
-npx github:NanAquarius/Glassroom install openclaw --skills glassroom-router,glassroom-source-intake
-```
-
-### List available Glassroom skills
-
-```bash
-npx github:NanAquarius/Glassroom list-skills
-```
-
-### Future npm form
-
-After Glassroom is published to npm, the same commands become:
+Install into an OpenClaw workspace:
 
 ```bash
 npx glassroom install openclaw
+```
+
+Install into the current project workspace:
+
+```bash
 npx glassroom install project
+```
+
+Install only selected skills:
+
+```bash
+npx glassroom install openclaw --skills glassroom-router,glassroom-source-intake
+```
+
+List available Glassroom skills:
+
+```bash
 npx glassroom list-skills
+```
+
+### GitHub fallback
+
+If npm is unavailable, you can still run Glassroom directly from GitHub:
+
+```bash
+npx github:NanAquarius/Glassroom install openclaw
+npx github:NanAquarius/Glassroom install project
+npx github:NanAquarius/Glassroom list-skills
 ```
 
 ### One-sentence install prompt for AI CLIs
 
-For Claude Code, OpenCode, or similar coding-agent CLIs, you can now use a much shorter install instruction:
+For Claude Code, OpenCode, or similar coding-agent CLIs:
 
 ```text
-Run `npx github:NanAquarius/Glassroom install project` in this workspace and tell me which Glassroom skills are now available.
+Run `npx glassroom install project` in this workspace and tell me which Glassroom skills are now available.
 ```
 
-Or, if the tool has access to your OpenClaw workspace:
+If the tool has access to your OpenClaw workspace:
 
 ```text
-Run `npx github:NanAquarius/Glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
+Run `npx glassroom install openclaw` and tell me which Glassroom skills were installed into ~/.openclaw/workspace/skills/.
 ```
 
 ### Manual install fallback

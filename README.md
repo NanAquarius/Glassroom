@@ -3,33 +3,50 @@
 # Glassroom
 
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![Shared schema](https://img.shields.io/badge/schema-case%20object-7c3aed)](#-shared-unit-of-work)
-[![Mountable skills](https://img.shields.io/badge/skills-mountable-0f766e)](#-module-families)
-[![UI templates](https://img.shields.io/badge/ui%20templates-deidentified-9a3412)](#-ui-template-library)
+[![Shared schema](https://img.shields.io/badge/schema-case%20object-7c3aed)](#shared-unit-of-work)
+[![Mountable skills](https://img.shields.io/badge/skills-mountable-0f766e)](#module-families)
+[![UI templates](https://img.shields.io/badge/ui%20templates-deidentified-9a3412)](#ui-template-library)
 
-> 🧭 *An open-source workflow core for turning case-based intelligence analysis into structured, teachable, reusable artifacts.*
+> 🧭 *An open-source workflow core and mountable skill suite for turning case-based intelligence analysis into structured, teachable, reusable artifacts.*
 
 ## 📚 Contents
 
-- [✨ What Glassroom is for](#-what-glassroom-is-for)
-- [🚫 What Glassroom is not for](#-what-glassroom-is-not-for)
-- [⚡ Quick start](#-quick-start)
-- [🧩 Current public scope](#-current-public-scope)
-- [🗺 Workflow artifact map](#-workflow-artifact-map)
-- [🔧 Shared unit of work](#-shared-unit-of-work)
-- [🧱 Module families](#-module-families)
-- [🎨 UI template library](#-ui-template-library)
-- [🗂 Repository layout](#-repository-layout)
-- [🛣 Roadmap direction](#-roadmap-direction)
-- [📐 Design principles](#-design-principles)
-- [📌 Status](#-status)
+- [✨ What Glassroom is](#what-glassroom-is)
+- [🚫 What Glassroom is not](#what-glassroom-is-not)
+- [⚡ Quick start](#quick-start)
+- [📦 Installation](#installation)
+- [🧩 Current public scope](#current-public-scope)
+- [🗺 Workflow artifact map](#workflow-artifact-map)
+- [🔧 Shared unit of work](#shared-unit-of-work)
+- [🧱 Module families](#module-families)
+- [🎨 UI template library](#ui-template-library)
+- [🗂 Repository layout](#repository-layout)
+- [🛣 Roadmap direction](#roadmap-direction)
+- [📐 Design principles](#design-principles)
+- [📌 Status](#status)
 - [License](#license)
 
-Glassroom is the open-source version of a case-based teaching and analysis workflow.
+Glassroom is an open-source workflow core for case-based intelligence analysis.
 
-It is built for projects that need more than “generate some course text” — they need a shared case object, stable intermediate artifacts, structured analytic outputs, and room for downstream rendering into HTML pages, worksheets, or writing deliverables.
+More concretely, it is also a **mountable skill suite**: the repository contains reusable packages, shared schemas, reference docs, and a `skills/` layer that can be mounted into agent workspaces.
 
-## ✨ What Glassroom is for
+<a id="what-glassroom-is"></a>
+## ✨ What Glassroom is
+
+Glassroom is **not just an agent** and **not just a single skill**.
+
+It is a project with two layers:
+
+- a **workflow core**
+  - shared case object
+  - intermediate artifacts
+  - reusable analysis modules
+
+- a **mountable skill suite**
+  - `skills/glassroom-router`
+  - `skills/glassroom-case-assembler`
+  - `skills/glassroom-cognitive-bias`
+  - `skills/glassroom-structured-analysis`
 
 Use Glassroom when you want a workflow that can:
 
@@ -39,7 +56,8 @@ Use Glassroom when you want a workflow that can:
 - expose a reusable schema instead of trapping logic inside one-off prompts
 - preserve teaching patterns that can survive beyond a single class artifact
 
-## 🚫 What Glassroom is not for
+<a id="what-glassroom-is-not"></a>
+## 🚫 What Glassroom is not
 
 It is **not** trying to be:
 
@@ -51,6 +69,7 @@ It is **not** trying to be:
 
 The open-source rule is simple: publish the portable backbone first, then add public-safe modules that can stand on their own.
 
+<a id="quick-start"></a>
 ## ⚡ Quick start
 
 The fastest path right now is to assemble a shared case object from public-safe example inputs.
@@ -80,8 +99,92 @@ python3 packages/structured-analysis/build_structured_analysis.py \
   --out-md /tmp/structured-analysis.md
 ```
 
-The repository already includes public-safe example inputs under [`examples/`](./examples/), so the current open-source modules can be exercised immediately.
+<a id="installation"></a>
+## 📦 Installation
 
+There are two common ways to use Glassroom:
+
+- **use the packages directly** from this repository
+- **mount the skills** from `skills/` into an agent workspace
+
+### Manual install for OpenClaw / workspace-based agents
+
+OpenClaw loads skills from workspace `skills/` directories. The most direct manual install is to clone this repo, then copy or symlink the Glassroom skill folders into your active workspace.
+
+#### Linux / macOS / WSL
+
+```bash
+git clone https://github.com/NanAquarius/Glassroom.git
+cd Glassroom
+mkdir -p ~/.openclaw/workspace/skills
+ln -s "$(pwd)/skills/glassroom-router" ~/.openclaw/workspace/skills/glassroom-router
+ln -s "$(pwd)/skills/glassroom-case-assembler" ~/.openclaw/workspace/skills/glassroom-case-assembler
+ln -s "$(pwd)/skills/glassroom-cognitive-bias" ~/.openclaw/workspace/skills/glassroom-cognitive-bias
+ln -s "$(pwd)/skills/glassroom-structured-analysis" ~/.openclaw/workspace/skills/glassroom-structured-analysis
+```
+
+If you prefer copies instead of symlinks:
+
+```bash
+cp -R skills/glassroom-router ~/.openclaw/workspace/skills/
+cp -R skills/glassroom-case-assembler ~/.openclaw/workspace/skills/
+cp -R skills/glassroom-cognitive-bias ~/.openclaw/workspace/skills/
+cp -R skills/glassroom-structured-analysis ~/.openclaw/workspace/skills/
+```
+
+#### Windows PowerShell
+
+```powershell
+git clone https://github.com/NanAquarius/Glassroom.git
+cd Glassroom
+New-Item -ItemType Directory -Force "$HOME/.openclaw/workspace/skills" | Out-Null
+Copy-Item .\skills\glassroom-router "$HOME/.openclaw/workspace/skills\glassroom-router" -Recurse -Force
+Copy-Item .\skills\glassroom-case-assembler "$HOME/.openclaw/workspace/skills\glassroom-case-assembler" -Recurse -Force
+Copy-Item .\skills\glassroom-cognitive-bias "$HOME/.openclaw/workspace/skills\glassroom-cognitive-bias" -Recurse -Force
+Copy-Item .\skills\glassroom-structured-analysis "$HOME/.openclaw/workspace/skills\glassroom-structured-analysis" -Recurse -Force
+```
+
+### Manual install into a project-local `skills/` directory
+
+If your agent runtime uses the current project folder as the workspace, you can also mount Glassroom by copying or symlinking the skill folders into `./skills/`.
+
+#### Linux / macOS / WSL
+
+```bash
+mkdir -p ./skills
+ln -s "$(pwd)/skills/glassroom-router" ./skills/glassroom-router
+ln -s "$(pwd)/skills/glassroom-case-assembler" ./skills/glassroom-case-assembler
+ln -s "$(pwd)/skills/glassroom-cognitive-bias" ./skills/glassroom-cognitive-bias
+ln -s "$(pwd)/skills/glassroom-structured-analysis" ./skills/glassroom-structured-analysis
+```
+
+#### Windows PowerShell
+
+```powershell
+New-Item -ItemType Directory -Force .\skills | Out-Null
+Copy-Item .\skills\glassroom-router .\skills\glassroom-router -Recurse -Force
+Copy-Item .\skills\glassroom-case-assembler .\skills\glassroom-case-assembler -Recurse -Force
+Copy-Item .\skills\glassroom-cognitive-bias .\skills\glassroom-cognitive-bias -Recurse -Force
+Copy-Item .\skills\glassroom-structured-analysis .\skills\glassroom-structured-analysis -Recurse -Force
+```
+
+### One-sentence install prompt for AI CLIs
+
+For Claude Code, OpenCode, or similar coding-agent CLIs, you can give the AI a one-line install instruction like this:
+
+```text
+Clone https://github.com/NanAquarius/Glassroom into this machine, then mount the folders under Glassroom/skills/ into the current workspace skills/ directory, and summarize which Glassroom skills are now available.
+```
+
+If the tool has access to your OpenClaw workspace, you can also say:
+
+```text
+Clone https://github.com/NanAquarius/Glassroom and mount the folders under Glassroom/skills/ into ~/.openclaw/workspace/skills/, then tell me which Glassroom skills were installed.
+```
+
+These prompts are intentionally generic so they work across CLI agents without assuming a tool-specific package manager.
+
+<a id="current-public-scope"></a>
 ## 🧩 Current public scope
 
 This initial public release includes:
@@ -98,6 +201,7 @@ This repository is intentionally starting small.
 
 The goal is not to dump everything at once, but to open the stable backbone first and expand from there.
 
+<a id="workflow-artifact-map"></a>
 ## 🗺 Workflow artifact map
 
 The current core flow looks like this:
@@ -128,6 +232,7 @@ What this structure buys you:
 - easier rendering into multiple downstream formats
 - less prompt-only logic trapped in one place
 
+<a id="shared-unit-of-work"></a>
 ## 🔧 Shared unit of work
 
 Glassroom uses a shared **case object** as the default unit of work.
@@ -141,6 +246,7 @@ Not every module needs every field.
 
 But the shared schema is the backbone that lets source intake, bias analysis, structured analysis, mitigations, rendering, and writing outputs keep talking to each other.
 
+<a id="module-families"></a>
 ## 🧱 Module families
 
 ### Package layer
@@ -172,6 +278,7 @@ That means the executable path lives in `packages/`, while `skills/` provides th
 - case HTML rendering
 - course writing outputs
 
+<a id="ui-template-library"></a>
 ## 🎨 UI template library
 
 Glassroom now also includes the beginning of a public-safe UI template library:
@@ -186,6 +293,7 @@ It is **not** a dump of classroom-owned pages.
 
 The rule is to preserve instructional flow, information architecture, and reusable UI logic while removing personal, instructor, course-owner, and source-specific identity markers.
 
+<a id="repository-layout"></a>
 ## 🗂 Repository layout
 
 ```text
@@ -208,6 +316,7 @@ Glassroom/
 └── README.md
 ```
 
+<a id="roadmap-direction"></a>
 ## 🛣 Roadmap direction
 
 Planned public-facing module families include:
@@ -229,6 +338,7 @@ That means the order matters:
 4. de-identified UI patterns
 5. downstream renderers and delivery modules
 
+<a id="design-principles"></a>
 ## 📐 Design principles
 
 - prefer stable structure over clever inference
@@ -237,6 +347,7 @@ That means the order matters:
 - separate workflow orchestration from presentation layers
 - open-source only what is public-safe, portable, and maintainable
 
+<a id="status"></a>
 ## 📌 Status
 
 Glassroom is still in an early extraction phase.

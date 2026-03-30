@@ -127,7 +127,17 @@ def build_card(data: dict) -> dict:
     text = " ".join(filter(None, [full_text, data.get("contentSnippet", ""), data.get("notes", "")]))
     source_type = classify_source_type(title, url, path, text)
     institution = data.get("authorOrInstitution") or infer_institution(url, " ".join(filter(None, [title, text])))
-    retrieval_quality = data.get("retrievalQuality") or ("high" if len(full_text) >= 4000 else ("medium" if len(full_text) >= 1500 else ("low" if len(full_text) >= 500 else "insufficient")))
+    retrieval_quality = data.get("retrievalQuality")
+    if not retrieval_quality:
+        text_len = len(full_text)
+        if text_len >= 4000:
+            retrieval_quality = "high"
+        elif text_len >= 1500:
+            retrieval_quality = "medium"
+        elif text_len >= 500:
+            retrieval_quality = "low"
+        else:
+            retrieval_quality = "insufficient"
     has_sufficient_text = bool(data.get("hasSufficientText", retrieval_quality in {"medium", "high"}))
     return {
         "title": title,

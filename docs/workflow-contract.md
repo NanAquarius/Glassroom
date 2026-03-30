@@ -30,14 +30,6 @@ Produces or enriches:
 - assumptions
 - expertAnalysis (bias-oriented interpretation)
 
-### cognitive-bias
-
-Produces or enriches:
-
-- biases
-- assumptions
-- expertAnalysis (bias-oriented interpretation)
-
 ### osint-pitfalls
 
 Produces or enriches:
@@ -45,15 +37,6 @@ Produces or enriches:
 - osintPitfalls
 - mitigations
 - evidence.ignored / provenance concerns
-
-### structured-analysis
-
-Produces or enriches:
-
-- structuredAnalysis.method
-- structuredAnalysis.outputs
-- policyQuestion
-- assumptions
 
 ### structured-analysis
 

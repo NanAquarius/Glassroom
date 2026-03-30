@@ -2,6 +2,16 @@
 
 All notable changes to Glassroom will be documented in this file.
 
+## [0.2.5] - 2026-03-30
+
+### Fixed
+
+- Removed duplicate `cognitive-bias` and `structured-analysis` sections in `docs/workflow-contract.md`.
+- Converted `schemas/glassroom-case.schema.json` from an empty-value skeleton to a proper JSON Schema (draft 2020-12) with types and descriptions.
+- Added network error handling to `fetch_source_bundle.py` so fetch failures return a structured error instead of crashing.
+- Refactored overly long line in `build_source_card.py` for readability.
+- Expanded `.gitignore` with `.env`, `*.egg-info/`, `.pytest_cache/`, `coverage/`, `.mypy_cache/`.
+
 ## [0.2.4] - 2026-03-26
 
 ### Changed

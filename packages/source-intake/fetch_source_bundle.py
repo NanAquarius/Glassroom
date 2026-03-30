@@ -127,7 +127,12 @@ def assess_completeness(text: str) -> str:
 def build_bundle(data: dict) -> dict:
     url = data.get("url", "")
     provider = detect_provider(url)
-    html_text = fetch_url(url)
+    fetch_error = ""
+    try:
+        html_text = fetch_url(url)
+    except Exception as e:
+        html_text = ""
+        fetch_error = str(e)
 
     if provider == "frus":
         extracted = extract_frus(html_text)
@@ -149,7 +154,8 @@ def build_bundle(data: dict) -> dict:
         "notes": data.get("notes") or "",
         "courseRelevance": data.get("courseRelevance") or "",
         "provider": provider,
-        "fetchStatus": "ok",
+        "fetchStatus": "error" if fetch_error else "ok",
+        "fetchError": fetch_error or None,
         "extractionMethod": extracted.get("extractionMethod", ""),
         "canonicalId": extracted.get("canonicalId", ""),
         "subject": extracted.get("subject", ""),

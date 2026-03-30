@@ -1,25 +1,268 @@
 {
-  "caseId": "",
-  "title": "",
-  "context": "",
-  "geopoliticalContext": "",
-  "keyActors": [],
-  "policyQuestion": "",
-  "assumptions": [],
-  "sourceCards": [],
-  "evidence": {
-    "supporting": [],
-    "contradicting": [],
-    "ignored": []
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "glassroom-case.schema.json",
+  "title": "Glassroom Case Object",
+  "description": "Shared backbone for a Glassroom intelligence-analysis course case. Each module enriches a subset of these fields.",
+  "type": "object",
+  "properties": {
+    "caseId": {
+      "type": "string",
+      "description": "Unique identifier for the case."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title of the case."
+    },
+    "caseSummary": {
+      "type": "string",
+      "description": "High-level overview inferred from pitfalls, biases, or the assembler."
+    },
+    "context": {
+      "type": "string",
+      "description": "Background context for the case scenario."
+    },
+    "geopoliticalContext": {
+      "type": "string",
+      "description": "Geopolitical setting or regional context relevant to the case."
+    },
+    "keyActors": {
+      "type": "array",
+      "description": "Major entities (states, organizations, individuals) involved in the case.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "policyQuestion": {
+      "type": "string",
+      "description": "Central policy or intelligence question the case addresses."
+    },
+    "assumptions": {
+      "type": "array",
+      "description": "Key assumptions underlying the analysis.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sourceCards": {
+      "type": "array",
+      "description": "Structured metadata objects for each ingested source.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Canonical title or subject of the source."
+          },
+          "sourceType": {
+            "type": "string",
+            "description": "Category of the source (e.g. official, leaked, academic, journalistic, commentary)."
+          },
+          "date": {
+            "type": "string",
+            "description": "Publication or release date."
+          },
+          "author": {
+            "type": "string",
+            "description": "Author or issuing institution."
+          },
+          "audience": {
+            "type": "string",
+            "description": "Likely intended audience."
+          },
+          "reliabilityNote": {
+            "type": "string",
+            "description": "Brief reliability assessment."
+          },
+          "relevance": {
+            "type": "string",
+            "description": "Why this source matters for the course case."
+          },
+          "isPrimaryEvidence": {
+            "type": "boolean",
+            "description": "Whether this source should be treated as primary evidence."
+          },
+          "recommendedNextStep": {
+            "type": "string",
+            "description": "Suggested follow-up action for this source."
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Categorized evidence items used in structured analysis.",
+      "properties": {
+        "supporting": {
+          "type": "array",
+          "description": "Evidence that supports the leading hypothesis or claim.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contradicting": {
+          "type": "array",
+          "description": "Evidence that contradicts the leading hypothesis or claim.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ignored": {
+          "type": "array",
+          "description": "Evidence with provenance concerns or that was overlooked.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "biases": {
+      "type": "array",
+      "description": "Identified cognitive biases relevant to the case.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "bias": {
+            "type": "string",
+            "description": "Name of the cognitive bias."
+          },
+          "evidence": {
+            "type": "string",
+            "description": "Source excerpt or evidence that makes this bias plausible."
+          },
+          "whyItFits": {
+            "type": "string",
+            "description": "Explanation of why this bias applies to the case."
+          },
+          "mitigation": {
+            "type": "string",
+            "description": "Suggested corrective tradecraft step."
+          },
+          "recommendedTechnique": {
+            "type": "string",
+            "description": "Specific analytic technique to counter the bias."
+          },
+          "mitigationSteps": {
+            "type": "array",
+            "description": "Ordered steps to mitigate the bias.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "osintPitfalls": {
+      "type": "array",
+      "description": "Identified OSINT reliability pitfalls for the case.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mitigations": {
+      "type": "array",
+      "description": "Corrective steps mapped to OSINT pitfalls.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pitfall": {
+            "type": "string",
+            "description": "The pitfall this mitigation addresses."
+          },
+          "action": {
+            "type": "string",
+            "description": "Recommended corrective action."
+          }
+        }
+      }
+    },
+    "structuredAnalysis": {
+      "type": "object",
+      "description": "Output of a structured analytic technique (e.g. ACH, key-assumptions-check).",
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "Analytic method used (e.g. 'ach', 'key-assumptions-check')."
+        },
+        "caseTitle": {
+          "type": "string",
+          "description": "Case title as recorded by the structured-analysis module."
+        },
+        "policyQuestion": {
+          "type": "string",
+          "description": "Policy question addressed by the analysis."
+        },
+        "outputs": {
+          "type": "array",
+          "description": "Generic analysis output items.",
+          "items": {}
+        },
+        "items": {
+          "type": "array",
+          "description": "Key-assumptions-check items.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "assumption": {
+                "type": "string"
+              },
+              "whyItMatters": {
+                "type": "string"
+              },
+              "whatWouldWeakenIt": {
+                "type": "string"
+              },
+              "whatToVerifyNext": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "rows": {
+          "type": "array",
+          "description": "ACH matrix rows.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "hypothesis": {
+                "type": "string"
+              },
+              "supportingEvidence": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "contradictingEvidence": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "diagnosticValue": {
+                "type": "string"
+              },
+              "provisionalAssessment": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "discussionPrompts": {
+      "type": "array",
+      "description": "Questions for classroom or group discussion.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expertAnalysis": {
+      "type": "string",
+      "description": "Bias-oriented or domain-expert interpretation narrative."
+    },
+    "recommendedDeliverables": {
+      "type": "array",
+      "description": "Suggested output formats (e.g. 'analytic-memo', 'interactive-case-page', 'structured-analysis-sheet').",
+      "items": {
+        "type": "string"
+      }
+    }
   },
-  "biases": [],
-  "osintPitfalls": [],
-  "mitigations": [],
-  "structuredAnalysis": {
-    "method": "",
-    "outputs": []
-  },
-  "discussionPrompts": [],
-  "expertAnalysis": "",
-  "recommendedDeliverables": []
+  "additionalProperties": true
 }
